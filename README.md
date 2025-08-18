@@ -1,36 +1,158 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Changmeng - Full Stack Next.js Application
 
-## Getting Started
+A modern full-stack application built with Next.js, featuring real-time communication and MongoDB integration.
 
-First, run the development server:
+## 🚀 Tech Stack
 
+### Frontend
+- **Next.js 15.4.6** - React framework for production
+- **React 19** - Latest version of React library
+- **TypeScript 5** - Type-safe JavaScript
+- **Tailwind CSS 4** - Utility-first CSS framework
+
+### Backend
+- **MongoDB** - NoSQL database with Mongoose ODM
+- **Next.js API Routes** - Server-side API endpoints
+
+### Communication
+- **Socket.io** - Real-time bidirectional communication
+
+## 📦 Installation
+
+1. Clone the repository:
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+git clone https://github.com/watchirapong/changmeng-nextjs.git
+cd changmeng-nextjs
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. Install dependencies:
+```bash
+npm install
+```
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+3. Set up environment variables:
+```bash
+cp env.example .env.local
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+Edit `.env.local` with your configuration:
+```env
+# MongoDB Configuration
+MONGODB_URI=mongodb://localhost:27017/changmeng
 
-## Learn More
+# Next.js Configuration
+NEXT_PUBLIC_CLIENT_URL=http://localhost:3001
 
-To learn more about Next.js, take a look at the following resources:
+# Socket.io Configuration
+NEXT_PUBLIC_SOCKET_URL=http://localhost:3001
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+4. Start MongoDB (if running locally):
+```bash
+# Install MongoDB if you haven't already
+brew install mongodb-community
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+# Start MongoDB service
+brew services start mongodb-community
+```
 
-## Deploy on Vercel
+5. Run the development server:
+```bash
+npm run dev
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Open [http://localhost:3001](http://localhost:3001) to view the application.
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+## 🏗️ Project Structure
+
+```
+src/
+├── app/                    # Next.js App Router
+│   ├── api/               # API routes
+│   │   ├── socket/        # Socket.io endpoint
+│   │   └── users/         # User management API
+│   ├── layout.tsx         # Root layout
+│   ├── page.tsx           # Home page
+│   └── globals.css        # Global styles
+├── components/            # React components
+│   └── TechStackDemo.tsx  # Demo component
+├── hooks/                 # Custom React hooks
+│   └── useSocket.ts       # Socket.io hook
+├── lib/                   # Utility libraries
+│   ├── mongodb.ts         # MongoDB connection
+│   └── socket.ts          # Socket.io server setup
+└── models/                # MongoDB models
+    └── User.ts            # User model
+```
+
+## 🔧 Features
+
+### MongoDB Integration
+- User management with CRUD operations
+- Mongoose ODM for data modeling
+- Connection pooling and caching
+
+### Socket.io Real-time Features
+- Real-time chat functionality
+- Room-based messaging
+- Connection status monitoring
+- Event-driven communication
+
+### Modern Development
+- TypeScript for type safety
+- ESLint for code quality
+- Tailwind CSS for styling
+- Hot reload with Turbopack
+
+## 🚀 Deployment
+
+### Vercel (Recommended)
+1. Push your code to GitHub
+2. Connect your repository to Vercel
+3. Set environment variables in Vercel dashboard
+4. Deploy automatically
+
+### Other Platforms
+The application can be deployed to any platform that supports Next.js:
+- Netlify
+- Railway
+- DigitalOcean App Platform
+- AWS Amplify
+
+## 📝 API Endpoints
+
+### Users API
+- `GET /api/users` - Get all users
+- `POST /api/users` - Create a new user
+
+### Socket.io
+- `GET /api/socket` - Initialize Socket.io server
+
+## 🔌 Socket.io Events
+
+### Client to Server
+- `join-room` - Join a chat room
+- `leave-room` - Leave a chat room
+- `send-message` - Send a message to a room
+
+### Server to Client
+- `receive-message` - Receive a message from a room
+
+## 🤝 Contributing
+
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Add tests if applicable
+5. Submit a pull request
+
+## 📄 License
+
+This project is open source and available under the [MIT License](LICENSE).
+
+## 🔗 Links
+
+- [Next.js Documentation](https://nextjs.org/docs)
+- [MongoDB Documentation](https://docs.mongodb.com/)
+- [Socket.io Documentation](https://socket.io/docs/)
+- [Tailwind CSS Documentation](https://tailwindcss.com/docs)
