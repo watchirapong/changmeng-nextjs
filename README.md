@@ -1,6 +1,6 @@
-# Changmeng - Full Stack Next.js Application
+# 🌾 เช่อแอ๋ว GPT - Smart Agricultural Recommendation App
 
-A modern full-stack application built with Next.js, featuring real-time communication and MongoDB integration.
+แอปแนะนำการเกษตรอัจฉริยะที่ช่วยเกษตรกรตัดสินใจ "ควรปลูกอะไรดี" ตามฤดูกาล ราคา และภาวะเศรษฐกิจ พร้อมตลาดขายตรงและความรู้การเกษตรครบครัน
 
 ## 🚀 Tech Stack
 
@@ -17,142 +17,213 @@ A modern full-stack application built with Next.js, featuring real-time communic
 ### Communication
 - **Socket.io** - Real-time bidirectional communication
 
-## 📦 Installation
+### AI Integration
+- **Google Gemini API** - AI-powered agricultural recommendations
+- **OpenAI GPT API** - Alternative AI provider (optional)
 
-1. Clone the repository:
-```bash
-git clone https://github.com/watchirapong/changmeng-nextjs.git
-cd changmeng-nextjs
-```
+## 🌟 Features
 
-2. Install dependencies:
-```bash
-npm install
-```
+### 🤖 AI-Powered Recommendations
+- **Crop Recommendations**: AI generates personalized crop suggestions based on season, location, and market conditions
+- **Market Analysis**: Real-time market trend analysis with price predictions
+- **Weather-Based Advice**: Farming recommendations based on weather conditions
+- **Risk Assessment**: AI evaluates risk and return scores for each crop
 
-3. Set up environment variables:
-```bash
-cp env.example .env.local
-```
+### 📊 Smart Dashboard
+- **Real-time Data**: Live agricultural data powered by AI
+- **Market Trends**: Price analysis and market predictions
+- **Weather Integration**: Weather-based farming recommendations
+- **Performance Metrics**: AI accuracy and confidence scores
 
-Edit `.env.local` with your configuration:
-```env
-# MongoDB Configuration
-MONGODB_URI=mongodb://localhost:27017/changmeng
+### 🛒 Community Marketplace
+- **Direct Sales**: Farmers can sell products directly to consumers
+- **Expiring Products**: Special discounts for products near expiration
+- **Rating System**: Community-based rating and review system
+- **Search & Filter**: Advanced search with category and price filters
 
-# Next.js Configuration
-NEXT_PUBLIC_CLIENT_URL=http://localhost:3001
+### 📚 Agricultural Knowledge Base
+- **Farming Guides**: Comprehensive guides for different crops
+- **Best Practices**: Expert advice on farming techniques
+- **Disease Prevention**: Natural pest and disease control methods
+- **Market Strategies**: Marketing and pricing strategies
 
-# Socket.io Configuration
-NEXT_PUBLIC_SOCKET_URL=http://localhost:3001
-```
+### 💰 Financial Management
+- **Cost Tracking**: Record and track farming costs
+- **Profit Analysis**: Calculate expected returns and profits
+- **Market Insights**: AI-powered market analysis
+- **Investment Planning**: Long-term investment strategies
 
-4. Start MongoDB (if running locally):
-```bash
-# Install MongoDB if you haven't already
-brew install mongodb-community
+## 🛠️ Installation
 
-# Start MongoDB service
-brew services start mongodb-community
-```
+1. **Clone the repository**
+   ```bash
+   git clone <repository-url>
+   cd changmeng
+   ```
 
-5. Run the development server:
-```bash
-npm run dev
-```
+2. **Install dependencies**
+   ```bash
+   npm install
+   ```
 
-Open [http://localhost:3001](http://localhost:3001) to view the application.
+3. **Set up environment variables**
+   ```bash
+   cp env.example .env.local
+   ```
+   
+   Update `.env.local` with your configuration:
+   ```env
+   # MongoDB Configuration
+   MONGODB_URI=mongodb://localhost:27017/changmeng
+   
+   # Next.js Configuration
+   NEXT_PUBLIC_CLIENT_URL=http://localhost:3001
+   
+   # Socket.io Configuration
+   NEXT_PUBLIC_SOCKET_URL=http://localhost:3001
+   
+   # AI API Keys
+   NEXT_PUBLIC_GEMINI_API_KEY=your_gemini_api_key_here
+   NEXT_PUBLIC_OPENAI_API_KEY=your_openai_api_key_here
+   
+   # AI Configuration
+   NEXT_PUBLIC_AI_MODEL=gemini
+   ```
 
-## 🏗️ Project Structure
+4. **Set up MongoDB**
+   - Install MongoDB locally or use MongoDB Atlas
+   - Create a database named `changmeng`
+
+5. **Run the development server**
+   ```bash
+   npm run dev
+   ```
+
+6. **Open your browser**
+   Navigate to [http://localhost:3001](http://localhost:3001)
+
+## 🤖 AI Integration Setup
+
+### Google Gemini API
+1. Get your API key from [Google AI Studio](https://makersuite.google.com/app/apikey)
+2. Add the key to your `.env.local` file:
+   ```env
+   NEXT_PUBLIC_GEMINI_API_KEY=your_gemini_api_key_here
+   ```
+
+### OpenAI API (Optional)
+1. Get your API key from [OpenAI Platform](https://platform.openai.com/api-keys)
+2. Add the key to your `.env.local` file:
+   ```env
+   NEXT_PUBLIC_OPENAI_API_KEY=your_openai_api_key_here
+   ```
+
+### Test AI Integration
+Visit `/test-ai` to test the AI integration and verify it's working correctly.
+
+## 📁 Project Structure
 
 ```
 src/
 ├── app/                    # Next.js App Router
 │   ├── api/               # API routes
-│   │   ├── socket/        # Socket.io endpoint
-│   │   └── users/         # User management API
-│   ├── layout.tsx         # Root layout
-│   ├── page.tsx           # Home page
-│   └── globals.css        # Global styles
+│   │   ├── ai/            # AI-powered endpoints
+│   │   │   ├── recommendations/
+│   │   │   ├── market-analysis/
+│   │   │   └── weather/
+│   │   ├── socket/        # Socket.io endpoints
+│   │   └── users/         # User management
+│   ├── dashboard/         # Main dashboard
+│   ├── marketplace/       # Community marketplace
+│   ├── knowledge/         # Agricultural knowledge
+│   └── test-ai/          # AI testing page
 ├── components/            # React components
-│   └── TechStackDemo.tsx  # Demo component
-├── hooks/                 # Custom React hooks
-│   └── useSocket.ts       # Socket.io hook
 ├── lib/                   # Utility libraries
-│   ├── mongodb.ts         # MongoDB connection
-│   └── socket.ts          # Socket.io server setup
-└── models/                # MongoDB models
-    └── User.ts            # User model
+│   ├── ai.ts             # AI service integration
+│   ├── mongodb.ts        # Database connection
+│   └── socket.ts         # Socket.io configuration
+├── models/               # MongoDB models
+└── hooks/                # Custom React hooks
 ```
 
-## 🔧 Features
+## 🔧 API Endpoints
 
-### MongoDB Integration
-- User management with CRUD operations
-- Mongoose ODM for data modeling
-- Connection pooling and caching
+### AI-Powered Endpoints
+- `GET /api/ai/recommendations` - Get AI-generated crop recommendations
+- `GET /api/ai/market-analysis` - Get market analysis for specific crops
+- `GET /api/ai/weather` - Get weather-based farming recommendations
 
-### Socket.io Real-time Features
-- Real-time chat functionality
-- Room-based messaging
-- Connection status monitoring
-- Event-driven communication
+### User Management
+- `GET /api/users` - Get all users
+- `POST /api/users` - Create new user
 
-### Modern Development
-- TypeScript for type safety
-- ESLint for code quality
-- Tailwind CSS for styling
-- Hot reload with Turbopack
+### Socket.io
+- `GET /api/socket` - Initialize Socket.io server
+
+## 🌱 Key Features Explained
+
+### AI Crop Recommendations
+The app uses Google Gemini API to generate personalized crop recommendations based on:
+- **Season**: Current planting season
+- **Location**: Geographic region and climate
+- **Market Conditions**: Current and predicted prices
+- **Risk Assessment**: AI evaluates market risks and returns
+
+### Smart Market Analysis
+AI analyzes market trends and provides:
+- **Price Predictions**: 1-month and 3-month price forecasts
+- **Market Trends**: Rising, falling, or stable market conditions
+- **Confidence Scores**: AI confidence in predictions
+- **Key Factors**: Factors affecting price movements
+
+### Weather Integration
+AI provides weather-based farming advice:
+- **Current Conditions**: Temperature, humidity, rainfall
+- **Forecasts**: Weather predictions for planning
+- **Farming Recommendations**: Weather-specific advice
+- **Risk Mitigation**: Weather-related risk management
 
 ## 🚀 Deployment
 
 ### Vercel (Recommended)
-1. Push your code to GitHub
-2. Connect your repository to Vercel
-3. Set environment variables in Vercel dashboard
-4. Deploy automatically
+1. Connect your GitHub repository to Vercel
+2. Set environment variables in Vercel dashboard
+3. Deploy automatically on push to main branch
 
 ### Other Platforms
-The application can be deployed to any platform that supports Next.js:
+The app can be deployed to any platform that supports Next.js:
 - Netlify
 - Railway
 - DigitalOcean App Platform
 - AWS Amplify
 
-## 📝 API Endpoints
-
-### Users API
-- `GET /api/users` - Get all users
-- `POST /api/users` - Create a new user
-
-### Socket.io
-- `GET /api/socket` - Initialize Socket.io server
-
-## 🔌 Socket.io Events
-
-### Client to Server
-- `join-room` - Join a chat room
-- `leave-room` - Leave a chat room
-- `send-message` - Send a message to a room
-
-### Server to Client
-- `receive-message` - Receive a message from a room
-
 ## 🤝 Contributing
 
 1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Add tests if applicable
-5. Submit a pull request
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
 
 ## 📄 License
 
-This project is open source and available under the [MIT License](LICENSE).
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-## 🔗 Links
+## 🙏 Acknowledgments
 
-- [Next.js Documentation](https://nextjs.org/docs)
-- [MongoDB Documentation](https://docs.mongodb.com/)
-- [Socket.io Documentation](https://socket.io/docs/)
-- [Tailwind CSS Documentation](https://tailwindcss.com/docs)
+- **Google Gemini API** for AI-powered recommendations
+- **MongoDB** for database management
+- **Next.js** for the amazing framework
+- **Tailwind CSS** for beautiful styling
+- **Thai Farmers** for inspiration and feedback
+
+## 📞 Support
+
+For support and questions:
+- Create an issue in the GitHub repository
+- Contact the development team
+- Check the documentation
+
+---
+
+**เช่อแอ๋ว GPT** - Empowering Thai farmers with AI-driven agricultural intelligence 🌾🤖
