@@ -16,20 +16,11 @@ interface Article {
 
 export default function KnowledgeCategory() {
   const params = useParams();
-  const category = params.category as string;
-  const [articles, setArticles] = useState<Article[]>([]);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    // Simulate loading articles based on category
-    setTimeout(() => {
-      const mockArticles = getMockArticles(category);
-      setArticles(mockArticles);
-      setLoading(false);
-    }, 1000);
-  }, [category]);
+  const category = (params.category as string)?.toString();
+  const categorySlug = (category || '').toLowerCase();
 
   const getMockArticles = (cat: string): Article[] => {
+    console.log('getMockArticles called with category:', cat);
     const articlesByCategory: { [key: string]: Article[] } = {
       rice: [
         {
@@ -79,8 +70,17 @@ export default function KnowledgeCategory() {
       ]
     };
 
-    return articlesByCategory[cat] || [];
+    const result = articlesByCategory[cat] || [];
+    console.log('getMockArticles returning:', result.length, 'articles');
+    return result;
   };
+
+  // Get articles directly
+  const articles = getMockArticles(categorySlug);
+
+  console.log('Category from params:', category);
+  console.log('Category slug:', categorySlug);
+  console.log('Articles found:', articles.length);
 
   const getCategoryTitle = (cat: string): string => {
     const titles: { [key: string]: string } = {
@@ -106,7 +106,8 @@ export default function KnowledgeCategory() {
     return icons[cat] || '📚';
   };
 
-  if (loading) {
+  console.log('Component render - articles:', articles.length);
+  if (false) { // Always show content
     return (
       <div className="min-h-screen bg-gray-50">
         <div className="bg-green-600 text-white shadow-lg">
@@ -153,8 +154,8 @@ export default function KnowledgeCategory() {
                 </svg>
               </Link>
               <div className="flex items-center space-x-2">
-                <span className="text-2xl">{getCategoryIcon(category)}</span>
-                <h1 className="text-xl font-bold">{getCategoryTitle(category)}</h1>
+                <span className="text-2xl">{getCategoryIcon(categorySlug)}</span>
+                <h1 className="text-xl font-bold">{getCategoryTitle(categorySlug)}</h1>
               </div>
             </div>
           </div>
@@ -179,10 +180,10 @@ export default function KnowledgeCategory() {
             {/* Category Description */}
             <div className="bg-white rounded-lg shadow-md p-6">
               <h2 className="text-lg font-semibold text-gray-900 mb-2">
-                เกี่ยวกับ{getCategoryTitle(category)}
+                เกี่ยวกับ{getCategoryTitle(categorySlug)}
               </h2>
               <p className="text-gray-600">
-                ค้นพบความรู้และเทคนิคการเกษตรที่เกี่ยวข้องกับ{getCategoryTitle(category).toLowerCase()} 
+                ค้นพบความรู้และเทคนิคการเกษตรที่เกี่ยวข้องกับ{getCategoryTitle(categorySlug).toLowerCase()} 
                 จากผู้เชี่ยวชาญและเกษตรกรที่มีประสบการณ์
               </p>
             </div>
@@ -193,9 +194,11 @@ export default function KnowledgeCategory() {
                 <div key={article.id} className="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow">
                   <div className="flex items-start justify-between">
                     <div className="flex-1">
-                      <h3 className="text-lg font-semibold text-gray-900 mb-2 hover:text-green-600 transition-colors cursor-pointer">
-                        {article.title}
-                      </h3>
+                      <Link href={`/knowledge/${categorySlug}/${article.id}`} className="block">
+                        <h3 className="text-lg font-semibold text-gray-900 mb-2 hover:text-green-600 transition-colors cursor-pointer">
+                          {article.title}
+                        </h3>
+                      </Link>
                       <p className="text-gray-600 mb-4 line-clamp-3">
                         {article.content}
                       </p>
@@ -219,9 +222,9 @@ export default function KnowledgeCategory() {
                           <span>{new Date(article.date).toLocaleDateString('th-TH')}</span>
                           <span>⏱️ {article.readTime}</span>
                         </div>
-                        <button className="text-green-600 hover:text-green-700 font-medium">
+                        <Link href={`/knowledge/${categorySlug}/${article.id}`} className="text-green-600 hover:text-green-700 font-medium">
                           อ่านเพิ่มเติม →
-                        </button>
+                        </Link>
                       </div>
                     </div>
                   </div>
@@ -245,7 +248,7 @@ export default function KnowledgeCategory() {
                     key={cat.id}
                     href={`/knowledge/${cat.id}`}
                     className={`p-4 rounded-lg border-2 text-center transition-colors ${
-                      cat.id === category
+                      cat.id === categorySlug
                         ? 'border-green-500 bg-green-50 text-green-700'
                         : 'border-gray-200 hover:border-green-300 hover:bg-green-50'
                     }`}

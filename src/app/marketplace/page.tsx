@@ -34,6 +34,7 @@ const mockProducts: Product[] = [
     seller: 'สวนข้าวคุณสมชาย',
     location: 'จังหวัดสุรินทร์',
     description: 'ข้าวหอมมะลิคุณภาพดี ปลูกแบบอินทรีย์ ไม่ใช้สารเคมี',
+    isExpiring: false,
     rating: 4.8,
     reviews: 12,
     postedAt: '2024-01-15'
@@ -49,6 +50,7 @@ const mockProducts: Product[] = [
     seller: 'ฟาร์มข้าวโพดลุงแดง',
     location: 'จังหวัดนครราชสีมา',
     description: 'ข้าวโพดหวานสดใหม่ หวานกรอบ เก็บเกี่ยววันนี้',
+    isExpiring: false,
     rating: 4.6,
     reviews: 8,
     postedAt: '2024-01-14'
@@ -81,6 +83,7 @@ const mockProducts: Product[] = [
     seller: 'สวนผักคุณแม่',
     location: 'จังหวัดนนทบุรี',
     description: 'ผักกาดขาวสดใหม่ ปลูกในโรงเรือน ปลอดสารพิษ',
+    isExpiring: false,
     rating: 4.9,
     reviews: 25,
     postedAt: '2024-01-16'

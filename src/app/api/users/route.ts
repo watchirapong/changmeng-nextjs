@@ -38,10 +38,10 @@ export async function POST(request: NextRequest) {
 
     const savedUser = await user.save();
     return NextResponse.json({ user: savedUser }, { status: 201 });
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error('Error creating user:', error);
     
-    if (error.code === 11000) {
+    if (error && typeof error === 'object' && 'code' in error && error.code === 11000) {
       return NextResponse.json(
         { error: 'User already exists' },
         { status: 400 }

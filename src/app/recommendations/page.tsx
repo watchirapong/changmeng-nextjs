@@ -46,9 +46,13 @@ export default function Recommendations() {
     setLoading(true);
     try {
       const response = await fetch(`/api/ai/recommendations?season=${selectedSeason}&location=${selectedLocation}`);
-      const data = await response.json();
-      if (data.success) {
-        setRecommendations(data.recommendations);
+      if (response.ok) {
+        const data = await response.json();
+        if (data.success) {
+          setRecommendations(data.recommendations);
+        }
+      } else {
+        console.error('Error response:', response.status);
       }
     } catch (error) {
       console.error('Error fetching recommendations:', error);
@@ -159,48 +163,48 @@ export default function Recommendations() {
                   >
                     <div className="flex items-center justify-between mb-4">
                       <div className="flex items-center space-x-4">
-                        <div className="text-4xl">{crop.icon}</div>
+                        <div className="text-4xl">{crop.icon || '🌾'}</div>
                         <div>
-                          <h3 className="text-xl font-semibold text-gray-900">{crop.thaiName}</h3>
-                          <p className="text-gray-600">ฤดูปลูก: {crop.plantingSeason}</p>
+                          <h3 className="text-xl font-semibold text-gray-900">{crop.thaiName || crop.name}</h3>
+                          <p className="text-gray-600">ฤดูปลูก: {crop.plantingSeason || 'ไม่ระบุ'}</p>
                         </div>
                       </div>
                       <div className="text-right">
                         <div className="flex space-x-2 mb-2">
-                          <span className={`px-3 py-1 rounded-full text-sm font-medium ${getRiskColor(crop.riskScore)}`}>
-                            ความเสี่ยง: {crop.riskScore}/10
+                          <span className={`px-3 py-1 rounded-full text-sm font-medium ${getRiskColor(crop.riskScore || 5)}`}>
+                            ความเสี่ยง: {crop.riskScore || 5}/10
                           </span>
-                          <span className={`px-3 py-1 rounded-full text-sm font-medium ${getReturnColor(crop.returnScore)}`}>
-                            ผลตอบแทน: {crop.returnScore}/10
+                          <span className={`px-3 py-1 rounded-full text-sm font-medium ${getReturnColor(crop.returnScore || 5)}`}>
+                            ผลตอบแทน: {crop.returnScore || 5}/10
                           </span>
                         </div>
-                        <p className="text-sm text-gray-600">ความเชื่อมั่น AI: {crop.confidence}%</p>
+                        <p className="text-sm text-gray-600">ความเชื่อมั่น AI: {crop.confidence || 75}%</p>
                       </div>
                     </div>
 
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-4">
                       <div className="text-center p-3 bg-gray-50 rounded-lg">
                         <p className="text-sm text-gray-600">ราคาปัจจุบัน</p>
-                        <p className="font-semibold text-lg">{crop.currentPrice.toLocaleString()} บาท/ตัน</p>
+                        <p className="font-semibold text-lg">{(crop.currentPrice || 0).toLocaleString()} บาท/ตัน</p>
                       </div>
                       <div className="text-center p-3 bg-green-50 rounded-lg">
                         <p className="text-sm text-gray-600">ราคาคาดการณ์</p>
-                        <p className="font-semibold text-lg text-green-600">{crop.predictedPrice.toLocaleString()} บาท/ตัน</p>
+                        <p className="font-semibold text-lg text-green-600">{(crop.predictedPrice || 0).toLocaleString()} บาท/ตัน</p>
                       </div>
                       <div className="text-center p-3 bg-blue-50 rounded-lg">
                         <p className="text-sm text-gray-600">ต้นทุน</p>
-                        <p className="font-semibold text-lg">{crop.investment.toLocaleString()} บาท/ไร่</p>
+                        <p className="font-semibold text-lg">{(crop.investment || 0).toLocaleString()} บาท/ไร่</p>
                       </div>
                       <div className="text-center p-3 bg-orange-50 rounded-lg">
                         <p className="text-sm text-gray-600">กำไรคาดการณ์</p>
-                        <p className="font-semibold text-lg text-orange-600">{crop.expectedReturn.toLocaleString()} บาท/ไร่</p>
+                        <p className="font-semibold text-lg text-orange-600">{(crop.expectedReturn || 0).toLocaleString()} บาท/ไร่</p>
                       </div>
                     </div>
 
                     <div className="bg-blue-50 p-4 rounded-lg">
                       <h4 className="font-semibold text-blue-800 mb-2">💡 คำแนะนำจาก AI:</h4>
                       <ul className="space-y-1">
-                        {crop.recommendations.map((rec, idx) => (
+                        {(crop.recommendations || []).map((rec, idx) => (
                           <li key={idx} className="text-sm text-blue-700">• {rec}</li>
                         ))}
                       </ul>
@@ -223,24 +227,24 @@ export default function Recommendations() {
                       <div>
                         <div className="flex justify-between text-sm mb-1">
                           <span>ความเสี่ยง</span>
-                          <span>{selectedCrop.riskScore}/10</span>
+                          <span>{selectedCrop.riskScore || 5}/10</span>
                         </div>
                         <div className="w-full bg-gray-200 rounded-full h-2">
                           <div 
-                            className={`h-2 rounded-full ${selectedCrop.riskScore <= 3 ? 'bg-green-500' : selectedCrop.riskScore <= 6 ? 'bg-yellow-500' : 'bg-red-500'}`}
-                            style={{ width: `${selectedCrop.riskScore * 10}%` }}
+                            className={`h-2 rounded-full ${(selectedCrop.riskScore || 5) <= 3 ? 'bg-green-500' : (selectedCrop.riskScore || 5) <= 6 ? 'bg-yellow-500' : 'bg-red-500'}`}
+                            style={{ width: `${(selectedCrop.riskScore || 5) * 10}%` }}
                           ></div>
                         </div>
                       </div>
                       <div>
                         <div className="flex justify-between text-sm mb-1">
                           <span>ผลตอบแทน</span>
-                          <span>{selectedCrop.returnScore}/10</span>
+                          <span>{selectedCrop.returnScore || 5}/10</span>
                         </div>
                         <div className="w-full bg-gray-200 rounded-full h-2">
                           <div 
-                            className={`h-2 rounded-full ${selectedCrop.returnScore >= 8 ? 'bg-green-500' : selectedCrop.returnScore >= 6 ? 'bg-yellow-500' : 'bg-red-500'}`}
-                            style={{ width: `${selectedCrop.returnScore * 10}%` }}
+                            className={`h-2 rounded-full ${(selectedCrop.returnScore || 5) >= 8 ? 'bg-green-500' : (selectedCrop.returnScore || 5) >= 6 ? 'bg-yellow-500' : 'bg-red-500'}`}
+                            style={{ width: `${(selectedCrop.returnScore || 5) * 10}%` }}
                           ></div>
                         </div>
                       </div>
@@ -253,15 +257,15 @@ export default function Recommendations() {
                     <div className="space-y-2 text-sm">
                       <div className="flex justify-between">
                         <span>ต้นทุน:</span>
-                        <span>{selectedCrop.investment.toLocaleString()} บาท/ไร่</span>
+                        <span>{(selectedCrop.investment || 0).toLocaleString()} บาท/ไร่</span>
                       </div>
                       <div className="flex justify-between">
                         <span>รายได้คาดการณ์:</span>
-                        <span>{selectedCrop.expectedReturn.toLocaleString()} บาท/ไร่</span>
+                        <span>{(selectedCrop.expectedReturn || 0).toLocaleString()} บาท/ไร่</span>
                       </div>
                       <div className="flex justify-between font-semibold text-green-600">
                         <span>ROI:</span>
-                        <span>{calculateROI(selectedCrop.investment, selectedCrop.expectedReturn)}%</span>
+                        <span>{calculateROI(selectedCrop.investment || 0, selectedCrop.expectedReturn || 0)}%</span>
                       </div>
                     </div>
                   </div>
@@ -269,7 +273,7 @@ export default function Recommendations() {
                   {/* Market Trend */}
                   <div className="mb-6">
                     <h4 className="font-semibold text-gray-900 mb-2">📈 แนวโน้มตลาด</h4>
-                    <p className="text-sm text-gray-600">{selectedCrop.marketTrend}</p>
+                    <p className="text-sm text-gray-600">{selectedCrop.marketTrend || 'ไม่ระบุ'}</p>
                   </div>
 
                   {/* Actions */}
@@ -314,13 +318,13 @@ export default function Recommendations() {
                   <div className="flex justify-between">
                     <span className="text-gray-600">ความเสี่ยงเฉลี่ย</span>
                     <span className="font-semibold">
-                      {(recommendations.reduce((sum, crop) => sum + crop.riskScore, 0) / recommendations.length).toFixed(1)}/10
+                      {(recommendations.reduce((sum, crop) => sum + (crop.riskScore || 5), 0) / recommendations.length).toFixed(1)}/10
                     </span>
                   </div>
                   <div className="flex justify-between">
                     <span className="text-gray-600">ผลตอบแทนเฉลี่ย</span>
                     <span className="font-semibold">
-                      {(recommendations.reduce((sum, crop) => sum + crop.returnScore, 0) / recommendations.length).toFixed(1)}/10
+                      {(recommendations.reduce((sum, crop) => sum + (crop.returnScore || 5), 0) / recommendations.length).toFixed(1)}/10
                     </span>
                   </div>
                 </div>

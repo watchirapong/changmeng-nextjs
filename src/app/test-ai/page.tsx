@@ -5,7 +5,12 @@ import { getAIService } from '@/lib/ai';
 
 export default function TestAI() {
   const [loading, setLoading] = useState(false);
-  const [results, setResults] = useState<any>(null);
+  const [results, setResults] = useState<{
+    recommendations: any[];
+    marketAnalysis: any;
+    weatherData: any;
+    timestamp: string;
+  } | null>(null);
   const [error, setError] = useState<string | null>(null);
 
   const testAI = async () => {
@@ -132,7 +137,7 @@ export default function TestAI() {
                 <div>
                   <h4 className="font-semibold mb-2">คำแนะนำการเกษตร</h4>
                   <ul className="space-y-1 text-sm">
-                    {results.weatherData.recommendations?.map((rec: string, index: number) => (
+                    {results.weatherData.recommendations?.map((rec: any, index: number) => (
                       <li key={index} className="flex items-start">
                         <span className="text-green-600 mr-2">•</span>
                         {rec}

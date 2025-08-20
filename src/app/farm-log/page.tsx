@@ -304,19 +304,19 @@ export default function FarmLog() {
                     </td>
                     <td className="py-3 px-4 text-gray-600">{record.area} ไร่</td>
                     <td className="py-3 px-4 text-red-600 font-medium">
-                      {record.cost.toLocaleString()} บาท
+                      {(record.cost || 0).toLocaleString()} บาท
                     </td>
                     <td className="py-3 px-4 text-green-600 font-medium">
-                      {record.income.toLocaleString()} บาท
+                      {(record.income || 0).toLocaleString()} บาท
                     </td>
                     <td className="py-3 px-4">
-                      <span className={`font-medium ${record.profit >= 0 ? 'text-blue-600' : 'text-red-600'}`}>
-                        {record.profit >= 0 ? '+' : ''}{record.profit.toLocaleString()} บาท
+                      <span className={`font-medium ${(record.profit || 0) >= 0 ? 'text-blue-600' : 'text-red-600'}`}>
+                        {(record.profit || 0) >= 0 ? '+' : ''}{(record.profit || 0).toLocaleString()} บาท
                       </span>
                     </td>
                     <td className="py-3 px-4">
-                      <span className={`font-medium ${record.profit >= 0 ? 'text-purple-600' : 'text-red-600'}`}>
-                        {record.profit >= 0 ? '+' : ''}{(record.profit / record.area).toLocaleString()} บาท
+                      <span className={`font-medium ${(record.profit || 0) >= 0 ? 'text-purple-600' : 'text-red-600'}`}>
+                        {(record.profit || 0) >= 0 ? '+' : ''}{((record.profit || 0) / (record.area || 1)).toLocaleString()} บาท
                       </span>
                     </td>
                     <td className="py-3 px-4 text-gray-600 text-sm">{record.notes}</td>
@@ -335,8 +335,8 @@ export default function FarmLog() {
             <div className="space-y-4">
               {crops.map(crop => {
                 const cropRecords = records.filter(r => r.cropName === crop.id);
-                const totalProfit = cropRecords.reduce((sum, r) => sum + r.profit, 0);
-                const totalArea = cropRecords.reduce((sum, r) => sum + r.area, 0);
+                const totalProfit = cropRecords.reduce((sum, r) => sum + (r.profit || 0), 0);
+                const totalArea = cropRecords.reduce((sum, r) => sum + (r.area || 0), 0);
                 
                 if (cropRecords.length === 0) return null;
                 
@@ -354,7 +354,7 @@ export default function FarmLog() {
                         {totalProfit >= 0 ? '+' : ''}{totalProfit.toLocaleString()} บาท
                       </div>
                       <div className="text-sm text-gray-600">
-                        {(totalProfit / totalArea).toLocaleString()} บาท/ไร่
+                        {(totalProfit / (totalArea || 1)).toLocaleString()} บาท/ไร่
                       </div>
                     </div>
                   </div>
@@ -372,8 +372,8 @@ export default function FarmLog() {
                   const recordMonth = new Date(r.date).getFullYear() + '-' + (new Date(r.date).getMonth() + 1);
                   return recordMonth === month;
                 });
-                const monthProfit = monthRecords.reduce((sum, r) => sum + r.profit, 0);
-                const monthIncome = monthRecords.reduce((sum, r) => sum + r.income, 0);
+                const monthProfit = monthRecords.reduce((sum, r) => sum + (r.profit || 0), 0);
+                const monthIncome = monthRecords.reduce((sum, r) => sum + (r.income || 0), 0);
                 
                 return (
                   <div key={month} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">

@@ -47,7 +47,7 @@ export const useSocket = () => {
     }
   };
 
-  const onMessage = (callback: (data: any) => void) => {
+  const onMessage = (callback: (data: unknown) => void) => {
     if (socketRef.current) {
       socketRef.current.on('receive-message', callback);
     }

@@ -1,8 +1,6 @@
 // AI Service for generating agricultural data
 export interface AIConfig {
   geminiApiKey?: string;
-  openaiApiKey?: string;
-  model: 'gemini' | 'gpt-4' | 'gpt-3.5-turbo';
 }
 
 export interface CropData {
@@ -51,8 +49,50 @@ class AIService {
     this.config = config;
   }
 
+  // Generate chat response using AI with conversation memory
+  async generateChatResponse(message: string, conversationHistory: Array<{role: string, content: string}> = []): Promise<string> {
+    console.log('=== generateChatResponse called ===');
+    console.log('Using Gemini API only');
+    console.log('Gemini key present:', !!this.config.geminiApiKey);
+    console.log('Conversation history length:', conversationHistory.length);
+    
+    // Build conversation context with memory
+    let conversationContext = '';
+    if (conversationHistory.length > 0) {
+      // Keep only last 5 messages to save tokens
+      const recentHistory = conversationHistory.slice(-5);
+      conversationContext = recentHistory.map(msg => 
+        `${msg.role === 'user' ? 'ผู้ใช้' : 'AI'}: ${msg.content}`
+      ).join('\n') + '\n\n';
+    }
+    
+    const prompt = `
+    คุณเป็นผู้เชี่ยวชาญด้านการเกษตรในประเทศไทย ให้คำแนะนำที่สมบูรณ์และตรงประเด็น (1-2 ประโยค)
+
+    ${conversationContext}คำถามปัจจุบัน: ${message}
+
+    ตอบให้สมบูรณ์ในประโยคที่สั้นกระชับ ไม่ตัดคำ และเป็นประโยชน์สำหรับเกษตรกร
+    `;
+
+    try {
+      if (this.config.geminiApiKey) {
+        console.log('Using Gemini API for chat with key: Key provided');
+        return await this.callGeminiChatAPI(prompt);
+      } else {
+        console.warn('No Gemini API key provided, falling back to mock data');
+        return this.getMockChatResponse(message);
+      }
+    } catch (error) {
+      console.error('Gemini Chat API error:', error);
+      return this.getMockChatResponse(message);
+    }
+  }
+
   // Generate crop recommendations using AI
   async generateCropRecommendations(season: string, location: string): Promise<CropData[]> {
+    console.log('=== generateCropRecommendations called ===');
+    console.log('Season:', season, 'Location:', location);
+    
     const prompt = `
     คุณเป็นผู้เชี่ยวชาญด้านการเกษตรในประเทศไทย กรุณาสร้างข้อมูลคำแนะนำการปลูกพืชสำหรับเกษตรกรใน${location} ในช่วง${season}
 
@@ -80,16 +120,16 @@ class AIService {
     `;
 
     try {
-      if (this.config.model === 'gemini' && this.config.geminiApiKey) {
+      if (this.config.geminiApiKey) {
+        console.log('Using Gemini API with key: Key provided');
         return await this.callGeminiAPI(prompt);
-      } else if (this.config.openaiApiKey) {
-        return await this.callOpenAIAPI(prompt);
       } else {
-        // Fallback to mock data
+        console.warn('No Gemini API key provided, falling back to mock data');
         return this.getMockCropData();
       }
     } catch (error) {
-      console.error('AI API error:', error);
+      console.error('Gemini API error:', error);
+      console.log('Falling back to mock data due to error');
       return this.getMockCropData();
     }
   }
@@ -123,16 +163,14 @@ class AIService {
     `;
 
     try {
-      if (this.config.model === 'gemini' && this.config.geminiApiKey) {
+      if (this.config.geminiApiKey) {
         return await this.callGeminiMarketAPI(prompt);
-      } else if (this.config.openaiApiKey) {
-        return await this.callOpenAIMarketAPI(prompt);
       } else {
         return this.getMockMarketData();
       }
     } catch (error) {
-      console.error('AI Market API error:', error);
-              return this.getMockMarketData();
+      console.error('Gemini Market API error:', error);
+      return this.getMockMarketData();
     }
   }
 
@@ -152,23 +190,79 @@ class AIService {
     `;
 
     try {
-      if (this.config.model === 'gemini' && this.config.geminiApiKey) {
+      if (this.config.geminiApiKey) {
         return await this.callGeminiWeatherAPI(prompt);
-      } else if (this.config.openaiApiKey) {
-        return await this.callOpenAIWeatherAPI(prompt);
       } else {
         return this.getMockWeatherData();
       }
     } catch (error) {
-      console.error('AI Weather API error:', error);
+      console.error('Gemini Weather API error:', error);
       return this.getMockWeatherData();
     }
+  }
+
+  // Gemini Chat API call
+  private async callGeminiChatAPI(prompt: string): Promise<string> {
+    try {
+      const response = await fetch(`https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash:generateContent?key=${this.config.geminiApiKey}`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          contents: [{
+            parts: [{
+              text: prompt
+            }]
+          }]
+        })
+      });
+
+      if (!response.ok) {
+        console.warn(`Gemini Chat API error: ${response.status}, falling back to mock response`);
+        return this.getMockChatResponse(prompt);
+      }
+
+      const data = await response.json();
+      
+      if (!data.candidates || !data.candidates[0] || !data.candidates[0].content) {
+        console.warn('Invalid Gemini Chat API response, falling back to mock response');
+        return this.getMockChatResponse(prompt);
+      }
+      
+      const generatedText = data.candidates[0].content.parts[0].text;
+      return generatedText.trim();
+    } catch (error) {
+      console.error('Gemini Chat API call failed:', error);
+      return this.getMockChatResponse(prompt);
+    }
+  }
+
+
+
+  // Mock chat response
+  private getMockChatResponse(message: string): string {
+    const input = message.toLowerCase();
+    
+    if (input.includes('สวัสดี') || input.includes('hello')) {
+      return 'สวัสดีครับ! ผมเป็นผู้ช่วยเกษตร AI ที่จะช่วยตอบคำถามเกี่ยวกับการเกษตร การปลูกพืช การดูแลพืช และการแก้ปัญหาโรคต่างๆ ครับ มีอะไรให้ช่วยไหมครับ?';
+    }
+    
+    if (input.includes('ข้าว') || input.includes('ปลูก')) {
+      return 'สำหรับการปลูกข้าว ผมแนะนำให้เตรียมดินให้ดีก่อนปลูก ใช้ปุ๋ยอินทรีย์เพื่อเพิ่มความอุดมสมบูรณ์ และควบคุมน้ำให้เหมาะสมครับ';
+    }
+    
+    if (input.includes('โรค') || input.includes('ใบจุด')) {
+      return 'โรคใบจุดในข้าวสามารถแก้ไขได้โดยใช้สารชีวภัณฑ์หรือสารเคมีที่เหมาะสม และควรระวังเรื่องการระบายน้ำให้ดีครับ';
+    }
+    
+    return 'ขอบคุณสำหรับคำถามครับ ผมจะช่วยหาคำตอบให้คุณเกี่ยวกับการเกษตรครับ';
   }
 
   // Gemini API calls
   private async callGeminiAPI(prompt: string): Promise<CropData[]> {
     try {
-      const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=AIzaSyChGMJnvb3bZ5p3gARRRBtZNyQ9AVQ-JUc`, {
+      const response = await fetch(`https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash:generateContent?key=${this.config.geminiApiKey}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -206,7 +300,7 @@ class AIService {
 
   private async callGeminiMarketAPI(prompt: string): Promise<MarketAnalysis> {
     try {
-      const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=AIzaSyChGMJnvb3bZ5p3gARRRBtZNyQ9AVQ-JUc`, {
+      const response = await fetch(`https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash:generateContent?key=${this.config.geminiApiKey}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -243,7 +337,7 @@ class AIService {
 
   private async callGeminiWeatherAPI(prompt: string): Promise<WeatherData> {
     try {
-      const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:generateContent?key=AIzaSyChGMJnvb3bZ5p3gARRRBtZNyQ9AVQ-JUc`, {
+      const response = await fetch(`https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash:generateContent?key=${this.config.geminiApiKey}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -278,96 +372,7 @@ class AIService {
     }
   }
 
-  // OpenAI API calls
-  private async callOpenAIAPI(prompt: string): Promise<CropData[]> {
-    const response = await fetch('https://api.openai.com/v1/chat/completions', {
-      method: 'POST',
-      headers: {
-        'Authorization': `Bearer ${this.config.openaiApiKey}`,
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        model: this.config.model,
-        messages: [
-          {
-            role: 'system',
-            content: 'You are an agricultural expert specializing in Thai farming. Provide realistic data and recommendations.'
-          },
-          {
-            role: 'user',
-            content: prompt
-          }
-        ],
-        temperature: 0.7,
-        max_tokens: 2000
-      })
-    });
 
-    const data = await response.json();
-    const generatedText = data.choices[0].message.content;
-    
-    return this.parseAIResponse(generatedText);
-  }
-
-  private async callOpenAIMarketAPI(prompt: string): Promise<MarketAnalysis> {
-    const response = await fetch('https://api.openai.com/v1/chat/completions', {
-      method: 'POST',
-      headers: {
-        'Authorization': `Bearer ${this.config.openaiApiKey}`,
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        model: this.config.model,
-        messages: [
-          {
-            role: 'system',
-            content: 'You are a market analyst specializing in Thai agricultural markets.'
-          },
-          {
-            role: 'user',
-            content: prompt
-          }
-        ],
-        temperature: 0.7,
-        max_tokens: 1500
-      })
-    });
-
-    const data = await response.json();
-    const generatedText = data.choices[0].message.content;
-    
-    return this.parseMarketResponse(generatedText);
-  }
-
-  private async callOpenAIWeatherAPI(prompt: string): Promise<WeatherData> {
-    const response = await fetch('https://api.openai.com/v1/chat/completions', {
-      method: 'POST',
-      headers: {
-        'Authorization': `Bearer ${this.config.openaiApiKey}`,
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({
-        model: this.config.model,
-        messages: [
-          {
-            role: 'system',
-            content: 'You are a weather and agricultural expert for Thailand.'
-          },
-          {
-            role: 'user',
-            content: prompt
-          }
-        ],
-        temperature: 0.7,
-        max_tokens: 1000
-      })
-    });
-
-    const data = await response.json();
-    const generatedText = data.choices[0].message.content;
-    
-    return this.parseWeatherResponse(generatedText);
-  }
 
   // Parse AI responses
   private parseAIResponse(text: string): CropData[] {
@@ -392,7 +397,7 @@ class AIService {
       if (jsonMatch) {
         return JSON.parse(jsonMatch[0]);
       }
-      return this.getMockMarketAnalysis('ข้าว');
+      return this.getMockMarketData();
     } catch (error) {
       console.error('Failed to parse market response:', error);
       return this.getMockMarketData();
@@ -417,13 +422,18 @@ class AIService {
     return [
       {
         name: 'ข้าวหอมมะลิ',
-        season: 'ฤดูฝน',
-        location: 'ภาคกลาง',
-        riskLevel: 'ต่ำ',
-        expectedYield: '800-1200 กก./ไร่',
-        marketPrice: '12,000-15,000 บาท/ตัน',
+        thaiName: 'ข้าวหอมมะลิ',
+        icon: '🌾',
+        currentPrice: 15000,
+        predictedPrice: 16000,
+        riskScore: 3,
+        returnScore: 8,
+        plantingSeason: 'ฤดูฝน',
+        harvestTime: 120,
+        investment: 8000,
+        expectedReturn: 12000,
         confidence: 85,
-        description: 'ข้าวหอมมะลิเหมาะสำหรับปลูกในฤดูฝน ต้องการน้ำมาก แต่ให้ผลผลิตดีและราคาสูง',
+        marketTrend: 'เพิ่มขึ้น',
         recommendations: [
           'เตรียมดินให้ดีก่อนปลูก',
           'ใช้ปุ๋ยอินทรีย์เพื่อเพิ่มความอุดมสมบูรณ์',
@@ -433,13 +443,18 @@ class AIService {
       },
       {
         name: 'ข้าวเหนียว',
-        season: 'ฤดูฝน',
-        location: 'ภาคเหนือ',
-        riskLevel: 'ปานกลาง',
-        expectedYield: '600-900 กก./ไร่',
-        marketPrice: '8,000-12,000 บาท/ตัน',
+        thaiName: 'ข้าวเหนียว',
+        icon: '🌾',
+        currentPrice: 12000,
+        predictedPrice: 13000,
+        riskScore: 4,
+        returnScore: 7,
+        plantingSeason: 'ฤดูฝน',
+        harvestTime: 110,
+        investment: 7000,
+        expectedReturn: 10000,
         confidence: 75,
-        description: 'ข้าวเหนียวเหมาะสำหรับปลูกในภาคเหนือ ต้องการน้ำปานกลาง',
+        marketTrend: 'เสถียร',
         recommendations: [
           'เลือกพันธุ์ที่เหมาะสมกับพื้นที่',
           'จัดการน้ำอย่างเหมาะสม',
@@ -452,26 +467,29 @@ class AIService {
 
   private getMockMarketData(): MarketAnalysis {
     return {
+      cropName: 'ข้าว',
       currentPrice: 12500,
       priceHistory: [
         { date: '2024-01-01', price: 12000 },
         { date: '2024-01-15', price: 12200 },
-        { date: '2024-02-01', price: 12500 }
+        { date: '2024-02-01', price: 12500 },
+        { date: '2024-03-01', price: 12800 },
+        { date: '2024-04-01', price: 13000 },
+        { date: '2024-05-01', price: 13200 }
       ],
-      pricePrediction: 13000,
-      marketTrend: 'เพิ่มขึ้น',
-      demandLevel: 'สูง',
-      supplyLevel: 'ปานกลาง',
-      factors: [
-        'ราคาน้ำมันเชื้อเพลิงเพิ่มขึ้น',
-        'ความต้องการข้าวหอมมะลิในตลาดสูง',
-        'ผลผลิตในปีนี้คาดว่าจะลดลง'
-      ],
-      recommendations: [
-        'ควรขายเมื่อราคาสูง',
-        'เก็บรักษาสินค้าให้ดี',
-        'ติดตามราคาตลาดอย่างใกล้ชิด'
-      ]
+      prediction: {
+        nextMonth: 13500,
+        nextThreeMonths: 14000,
+        confidence: 85,
+        factors: [
+          'ราคาน้ำมันเชื้อเพลิงเพิ่มขึ้น',
+          'ความต้องการข้าวหอมมะลิในตลาดสูง',
+          'ผลผลิตในปีนี้คาดว่าจะลดลง',
+          'นโยบายการส่งออกข้าวของรัฐบาล'
+        ]
+      },
+      marketTrend: 'rising',
+      recommendation: 'ควรขายเมื่อราคาสูง เก็บรักษาสินค้าให้ดี และติดตามราคาตลาดอย่างใกล้ชิด'
     };
   }
 
@@ -480,14 +498,12 @@ class AIService {
       temperature: 28,
       humidity: 75,
       rainfall: 150,
-      windSpeed: 10,
       forecast: 'มีฝนตกปานกลาง',
       recommendations: [
         'ควรระวังเรื่องการระบายน้ำ',
         'ป้องกันโรคพืชที่เกิดจากความชื้น',
         'เก็บเกี่ยวผลผลิตให้ทันก่อนฝนตกหนัก'
-      ],
-      riskLevel: 'ปานกลาง'
+      ]
     };
   }
 }
@@ -498,9 +514,7 @@ let aiService: AIService | null = null;
 export function getAIService(): AIService {
   if (!aiService) {
     aiService = new AIService({
-      geminiApiKey: 'AIzaSyChGMJnvb3bZ5p3gARRRBtZNyQ9AVQ-JUc',
-      openaiApiKey: process.env.NEXT_PUBLIC_OPENAI_API_KEY,
-      model: 'gemini'
+      geminiApiKey: process.env.NEXT_PUBLIC_GEMINI_API_KEY
     });
   }
   return aiService;

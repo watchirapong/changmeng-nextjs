@@ -36,9 +36,13 @@ export default function MarketAnalysis() {
     setLoading(true);
     try {
       const response = await fetch(`/api/ai/market-analysis?crop=${cropName}`);
-      const data = await response.json();
-      if (data.success) {
-        setMarketData(data.analysis);
+      if (response.ok) {
+        const data = await response.json();
+        if (data.success) {
+          setMarketData(data.analysis);
+        }
+      } else {
+        console.error('Error response:', response.status);
       }
     } catch (error) {
       console.error('Error fetching market data:', error);
@@ -162,7 +166,7 @@ export default function MarketAnalysis() {
                   <h3 className="text-lg font-semibold text-gray-900 mb-4">ราคาปัจจุบัน</h3>
                   <div className="text-center">
                     <div className="text-3xl font-bold text-gray-900 mb-2">
-                      {marketData.currentPrice.toLocaleString()}
+                      {(marketData.currentPrice || 0).toLocaleString()}
                     </div>
                     <div className="text-sm text-gray-600">บาท/ตัน</div>
                   </div>
@@ -184,7 +188,7 @@ export default function MarketAnalysis() {
                   <h3 className="text-lg font-semibold text-gray-900 mb-4">ความเชื่อมั่น</h3>
                   <div className="text-center">
                     <div className="text-3xl font-bold text-blue-600 mb-2">
-                      {marketData.prediction.confidence}%
+                      {marketData.prediction?.confidence || 0}%
                     </div>
                     <div className="text-sm text-gray-600">ในการคาดการณ์</div>
                   </div>
@@ -225,22 +229,22 @@ export default function MarketAnalysis() {
                   <div className="p-4 bg-green-50 rounded-lg">
                     <h4 className="font-semibold text-green-800 mb-2">📅 เดือนหน้า</h4>
                     <div className="text-2xl font-bold text-green-600 mb-2">
-                      {marketData.prediction.nextMonth.toLocaleString()} บาท/ตัน
+                      {(marketData.prediction?.nextMonth || 0).toLocaleString()} บาท/ตัน
                     </div>
                     <div className="text-sm text-green-700">
-                      {marketData.prediction.nextMonth > marketData.currentPrice ? '+' : ''}
-                      {calculatePriceChange(marketData.prediction.nextMonth, marketData.currentPrice)}% 
+                      {(marketData.prediction?.nextMonth || 0) > (marketData.currentPrice || 0) ? '+' : ''}
+                      {calculatePriceChange(marketData.prediction?.nextMonth || 0, marketData.currentPrice || 0)}% 
                       จากราคาปัจจุบัน
                     </div>
                   </div>
                   <div className="p-4 bg-blue-50 rounded-lg">
                     <h4 className="font-semibold text-blue-800 mb-2">📅 3 เดือนข้างหน้า</h4>
                     <div className="text-2xl font-bold text-blue-600 mb-2">
-                      {marketData.prediction.nextThreeMonths.toLocaleString()} บาท/ตัน
+                      {(marketData.prediction?.nextThreeMonths || 0).toLocaleString()} บาท/ตัน
                     </div>
                     <div className="text-sm text-blue-700">
-                      {marketData.prediction.nextThreeMonths > marketData.currentPrice ? '+' : ''}
-                      {calculatePriceChange(marketData.prediction.nextThreeMonths, marketData.currentPrice)}% 
+                      {(marketData.prediction?.nextThreeMonths || 0) > (marketData.currentPrice || 0) ? '+' : ''}
+                      {calculatePriceChange(marketData.prediction?.nextThreeMonths || 0, marketData.currentPrice || 0)}% 
                       จากราคาปัจจุบัน
                     </div>
                   </div>
@@ -253,7 +257,7 @@ export default function MarketAnalysis() {
               <div className="bg-white rounded-lg shadow-sm p-6">
                 <h3 className="text-lg font-semibold text-gray-900 mb-4">ปัจจัยที่ส่งผลต่อราคา</h3>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                  {marketData.prediction.factors.map((factor, index) => (
+                  {(marketData.prediction?.factors || []).map((factor, index) => (
                     <div key={index} className="p-3 bg-yellow-50 rounded-lg">
                       <div className="flex items-center space-x-2">
                         <span className="text-yellow-600">💡</span>
@@ -270,7 +274,7 @@ export default function MarketAnalysis() {
               <div className="bg-white rounded-lg shadow-sm p-6">
                 <h3 className="text-lg font-semibold text-gray-900 mb-4">💡 คำแนะนำจาก AI</h3>
                 <div className="p-4 bg-blue-50 rounded-lg">
-                  <p className="text-blue-800">{marketData.recommendation}</p>
+                  <p className="text-blue-800">{marketData.recommendation || 'ติดตามราคาตลาดอย่างใกล้ชิด'}</p>
                 </div>
               </div>
             )}

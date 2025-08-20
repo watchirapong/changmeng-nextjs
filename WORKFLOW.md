@@ -1,4 +1,4 @@
-# 🌾 เช่อแอ๋ว GPT - Workflow & User Journey
+# 🌾 AgriLearn - Workflow & User Journey
 
 ## 📋 ภาพรวม Workflow
 

@@ -24,7 +24,7 @@ export default function Navigation() {
         <div className="flex justify-between items-center py-2">
           <div className="flex items-center space-x-1">
             <span className="text-2xl">🌾</span>
-            <span className="font-bold text-green-600 text-sm">เช่อแอ๋ว GPT</span>
+            <span className="font-bold text-green-600 text-sm">AgriLearn</span>
           </div>
           
           <div className="hidden md:flex space-x-1">

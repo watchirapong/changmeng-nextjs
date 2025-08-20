@@ -11,7 +11,7 @@ export default function Home() {
             <div className="flex items-center space-x-4">
               <div className="text-4xl">🌾</div>
               <div>
-                <h1 className="text-2xl font-bold text-green-800">เช่อแอ๋ว GPT</h1>
+                <h1 className="text-2xl font-bold text-green-800">AgriLearn</h1>
                 <p className="text-green-600">แอปแนะนำการเกษตรอัจฉริยะ</p>
               </div>
             </div>
@@ -40,7 +40,7 @@ export default function Home() {
             ปลูกอะไรดี? ขายยังไงให้คุ้ม?
           </h2>
           <p className="text-xl text-green-700 mb-8 max-w-3xl mx-auto">
-            เช่อแอ๋ว GPT จะช่วยคุณตัดสินใจปลูกพืชที่เหมาะสมตามฤดูกาล ราคา และภาวะเศรษฐกิจ 
+            AgriLearn จะช่วยคุณตัดสินใจปลูกพืชที่เหมาะสมตามฤดูกาล ราคา และภาวะเศรษฐกิจ 
             พร้อมตลาดขายตรงและความรู้การเกษตรครบครัน
           </p>
           
@@ -145,7 +145,7 @@ export default function Home() {
       <div className="bg-green-800 text-white py-8">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
-            <p className="text-lg font-semibold mb-2">เช่อแอ๋ว GPT</p>
+            <p className="text-lg font-semibold mb-2">AgriLearn</p>
             <p className="text-green-200">แอปแนะนำการเกษตรอัจฉริยะเพื่อเกษตรกรไทย</p>
             <div className="mt-4 flex justify-center space-x-6">
               <Link href="/about" className="text-green-200 hover:text-white">เกี่ยวกับเรา</Link>

@@ -27,7 +27,7 @@ export default function TechStackDemo() {
 
   // Socket.io message handling
   useEffect(() => {
-    onMessage((data) => {
+    onMessage((data: any) => {
       setMessages(prev => [...prev, { 
         sender: data.sender, 
         message: data.message, 

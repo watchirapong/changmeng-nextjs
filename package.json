@@ -6,7 +6,11 @@
     "dev": "next dev --turbopack",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "export": "next build && next export",
+    "deploy": "bash scripts/deploy.sh",
+    "prod-build": "NODE_ENV=production npm run build",
+    "type-check": "tsc --noEmit"
   },
   "dependencies": {
     "mongodb": "^6.18.0",

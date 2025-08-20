@@ -1,4 +1,4 @@
-# 🌾 เช่อแอ๋ว GPT - Smart Agricultural Recommendation App
+# 🌾 AgriLearn - Smart Agricultural Recommendation App
 
 แอปแนะนำการเกษตรอัจฉริยะที่ช่วยเกษตรกรตัดสินใจ "ควรปลูกอะไรดี" ตามฤดูกาล ราคา และภาวะเศรษฐกิจ พร้อมตลาดขายตรงและความรู้การเกษตรครบครัน
 
@@ -226,4 +226,4 @@ For support and questions:
 
 ---
 
-**เช่อแอ๋ว GPT** - Empowering Thai farmers with AI-driven agricultural intelligence 🌾🤖
+**AgriLearn** - Empowering Thai farmers with AI-driven agricultural intelligence 🌾🤖

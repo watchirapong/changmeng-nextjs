@@ -35,33 +35,49 @@ export default function Dashboard() {
   const fetchData = async () => {
     try {
       setLoading(true);
+      setError(null);
       
       // Fetch AI-generated recommendations
-      const recResponse = await fetch('/api/ai/recommendations?season=ฤดูฝน&location=ภาคกลาง');
-      const recData = await recResponse.json();
-      
-      if (recData.success) {
-        setRecommendations(recData.recommendations);
+      try {
+        const recResponse = await fetch('/api/ai/recommendations?season=ฤดูฝน&location=ภาคกลาง');
+        if (recResponse.ok) {
+          const recData = await recResponse.json();
+          if (recData.success) {
+            setRecommendations(recData.recommendations);
+          }
+        }
+      } catch (err) {
+        console.error('Error fetching recommendations:', err);
       }
 
       // Fetch market analysis for rice
-      const marketResponse = await fetch('/api/ai/market-analysis?crop=ข้าว');
-      const marketData = await marketResponse.json();
-      
-      if (marketData.success) {
-        setMarketData(marketData.analysis);
+      try {
+        const marketResponse = await fetch('/api/ai/market-analysis?crop=rice');
+        if (marketResponse.ok) {
+          const marketData = await marketResponse.json();
+          if (marketData.success) {
+            setMarketData(marketData.analysis);
+          }
+        }
+      } catch (err) {
+        console.error('Error fetching market data:', err);
       }
 
       // Fetch weather data
-      const weatherResponse = await fetch('/api/ai/weather?location=ภาคกลาง');
-      const weatherData = await weatherResponse.json();
-      
-      if (weatherData.success) {
-        setWeatherData(weatherData.weatherData);
+      try {
+        const weatherResponse = await fetch('/api/ai/weather?location=central');
+        if (weatherResponse.ok) {
+          const weatherData = await weatherResponse.json();
+          if (weatherData.success) {
+            setWeatherData(weatherData.weatherData);
+          }
+        }
+      } catch (err) {
+        console.error('Error fetching weather data:', err);
       }
 
     } catch (err) {
-      console.error('Error fetching data:', err);
+      console.error('Error in fetchData:', err);
       setError('ไม่สามารถโหลดข้อมูลได้');
     } finally {
       setLoading(false);
@@ -129,7 +145,7 @@ export default function Dashboard() {
             <div className="flex items-center space-x-4">
               <div className="text-3xl">🌾</div>
               <div>
-                <h1 className="text-xl font-bold text-gray-900">เช่อแอ๋ว GPT</h1>
+                <h1 className="text-xl font-bold text-gray-900">AgriLearn</h1>
                 <p className="text-gray-600">แดชบอร์ดเกษตรกร (ขับเคลื่อนด้วย AI)</p>
               </div>
             </div>
