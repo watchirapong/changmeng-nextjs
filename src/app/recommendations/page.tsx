@@ -185,7 +185,7 @@ export default function Recommendations() {
                     <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-4">
                       <div className="text-center p-3 bg-gray-50 rounded-lg">
                         <p className="text-sm text-gray-600">ราคาปัจจุบัน</p>
-                        <p className="font-semibold text-lg">{(crop.currentPrice || 0).toLocaleString()} บาท/ตัน</p>
+                        <p className="font-semibold text-lg text-gray-900">{(crop.currentPrice || 0).toLocaleString()} บาท/ตัน</p>
                       </div>
                       <div className="text-center p-3 bg-green-50 rounded-lg">
                         <p className="text-sm text-gray-600">ราคาคาดการณ์</p>
@@ -193,7 +193,7 @@ export default function Recommendations() {
                       </div>
                       <div className="text-center p-3 bg-blue-50 rounded-lg">
                         <p className="text-sm text-gray-600">ต้นทุน</p>
-                        <p className="font-semibold text-lg">{(crop.investment || 0).toLocaleString()} บาท/ไร่</p>
+                        <p className="font-semibold text-lg text-gray-900">{(crop.investment || 0).toLocaleString()} บาท/ไร่</p>
                       </div>
                       <div className="text-center p-3 bg-orange-50 rounded-lg">
                         <p className="text-sm text-gray-600">กำไรคาดการณ์</p>

@@ -260,7 +260,7 @@ export default function Dashboard() {
                     <div className="mt-4 grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
                       <div>
                         <p className="text-gray-600">ราคาปัจจุบัน</p>
-                        <p className="font-semibold">{(crop.currentPrice || 0).toLocaleString()} บาท/ตัน</p>
+                        <p className="font-semibold text-gray-900">{(crop.currentPrice || 0).toLocaleString()} บาท/ตัน</p>
                       </div>
                       <div>
                         <p className="text-gray-600">ราคาคาดการณ์</p>
@@ -268,7 +268,7 @@ export default function Dashboard() {
                       </div>
                       <div>
                         <p className="text-gray-600">ต้นทุน</p>
-                        <p className="font-semibold">{(crop.investment || 0).toLocaleString()} บาท/ไร่</p>
+                        <p className="font-semibold text-gray-900">{(crop.investment || 0).toLocaleString()} บาท/ไร่</p>
                       </div>
                       <div>
                         <p className="text-gray-600">กำไรคาดการณ์</p>
@@ -315,7 +315,7 @@ export default function Dashboard() {
                 <div className="space-y-3">
                   <div className="flex justify-between items-center">
                     <span className="text-gray-600">ราคาปัจจุบัน</span>
-                    <span className="font-semibold">{(marketData.currentPrice || 0).toLocaleString()} บาท/ตัน</span>
+                    <span className="font-semibold text-gray-900">{(marketData.currentPrice || 0).toLocaleString()} บาท/ตัน</span>
                   </div>
                   <div className="flex justify-between items-center">
                     <span className="text-gray-600">แนวโน้ม</span>

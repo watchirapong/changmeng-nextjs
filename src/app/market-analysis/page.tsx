@@ -204,7 +204,7 @@ export default function MarketAnalysis() {
                   {(marketData.priceHistory || []).map((item, index) => (
                     <div key={index} className="flex items-center justify-between p-3 bg-gray-50 rounded-lg">
                       <span className="font-medium">{item.date}</span>
-                      <span className="font-semibold">{(item.price || 0).toLocaleString()} บาท/ตัน</span>
+                      <span className="font-semibold text-gray-900">{(item.price || 0).toLocaleString()} บาท/ตัน</span>
                       {index > 0 && (
                         <span className={`text-sm ${
                           (item.price || 0) > (marketData.priceHistory[index - 1].price || 0)

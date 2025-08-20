@@ -339,7 +339,7 @@ export default function Marketplace() {
                           </span>
                         </span>
                       ) : (
-                        <span>{product.price.toLocaleString()} บาท</span>
+                        <span className="text-gray-900">{product.price.toLocaleString()} บาท</span>
                       )}
                     </span>
                   </div>

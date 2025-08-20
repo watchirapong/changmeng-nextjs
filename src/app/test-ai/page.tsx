@@ -84,7 +84,7 @@ export default function TestAI() {
                       <h4 className="font-semibold">{crop.thaiName}</h4>
                     </div>
                     <div className="space-y-1 text-sm">
-                      <p><strong>ราคาปัจจุบัน:</strong> {crop.currentPrice?.toLocaleString()} บาท/ตัน</p>
+                      <p><strong>ราคาปัจจุบัน:</strong> <span className="text-gray-900">{crop.currentPrice?.toLocaleString()}</span> บาท/ตัน</p>
                       <p><strong>ราคาคาดการณ์:</strong> {crop.predictedPrice?.toLocaleString()} บาท/ตัน</p>
                       <p><strong>ความเสี่ยง:</strong> {crop.riskScore}/10</p>
                       <p><strong>ผลตอบแทน:</strong> {crop.returnScore}/10</p>
@@ -102,7 +102,7 @@ export default function TestAI() {
                 <div>
                   <h4 className="font-semibold mb-2">ข้อมูลตลาด {results.marketAnalysis.cropName}</h4>
                   <div className="space-y-2 text-sm">
-                    <p><strong>ราคาปัจจุบัน:</strong> {results.marketAnalysis.currentPrice?.toLocaleString()} บาท/ตัน</p>
+                    <p><strong>ราคาปัจจุบัน:</strong> <span className="text-gray-900">{results.marketAnalysis.currentPrice?.toLocaleString()}</span> บาท/ตัน</p>
                     <p><strong>แนวโน้ม:</strong> {results.marketAnalysis.marketTrend}</p>
                     <p><strong>ความเชื่อมั่น:</strong> {results.marketAnalysis.prediction?.confidence}%</p>
                     <p><strong>คำแนะนำ:</strong> {results.marketAnalysis.recommendation}</p>
@@ -113,7 +113,7 @@ export default function TestAI() {
                   <div className="space-y-1 text-sm">
                     {results.marketAnalysis.priceHistory?.map((item: any, index: number) => (
                       <p key={index}>
-                        {item.date}: {item.price?.toLocaleString()} บาท/ตัน
+                        {item.date}: <span className="text-gray-900">{item.price?.toLocaleString()}</span> บาท/ตัน
                       </p>
                     ))}
                   </div>
