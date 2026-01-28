@@ -66,14 +66,14 @@ export default function Recommendations() {
   }, [selectedLocation, selectedSeason]);
 
   const getRiskColor = (score: number) => {
-    if (score <= 2) return 'text-green-600 bg-green-100';
-    if (score <= 4) return 'text-yellow-600 bg-yellow-100';
+    if (score <= 2) return 'text-yellow-600 bg-yellow-100';
+    if (score <= 4) return 'text-orange-600 bg-orange-100';
     return 'text-red-600 bg-red-100';
   };
 
   const getReturnColor = (score: number) => {
-    if (score >= 8) return 'text-green-600 bg-green-100';
-    if (score >= 6) return 'text-yellow-600 bg-yellow-100';
+    if (score >= 8) return 'text-yellow-600 bg-yellow-100';
+    if (score >= 6) return 'text-orange-600 bg-orange-100';
     return 'text-red-600 bg-red-100';
   };
 
@@ -94,7 +94,7 @@ export default function Recommendations() {
                 <p className="text-gray-600">AI แนะนำพืชที่เหมาะสมตามพื้นที่และฤดูกาล</p>
               </div>
             </div>
-            <Link href="/dashboard" className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg transition-colors">
+            <Link href="/dashboard" className="bg-yellow-500 hover:bg-yellow-600 text-white px-4 py-2 rounded-lg transition-colors">
               🏠 หน้าแรก
             </Link>
           </div>
@@ -111,7 +111,7 @@ export default function Recommendations() {
               <select
                 value={selectedLocation}
                 onChange={(e) => setSelectedLocation(e.target.value)}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500"
               >
                 {locations.map(location => (
                   <option key={location.id} value={location.id}>{location.name}</option>
@@ -123,7 +123,7 @@ export default function Recommendations() {
               <select
                 value={selectedSeason}
                 onChange={(e) => setSelectedSeason(e.target.value)}
-                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
+                className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500"
               >
                 {seasons.map(season => (
                   <option key={season.id} value={season.id}>{season.name}</option>
@@ -134,7 +134,7 @@ export default function Recommendations() {
               <button
                 onClick={fetchRecommendations}
                 disabled={loading}
-                className="w-full bg-green-600 hover:bg-green-700 disabled:bg-gray-400 text-white px-4 py-2 rounded-lg transition-colors"
+                className="w-full bg-yellow-500 hover:bg-yellow-600 disabled:bg-gray-400 text-white px-4 py-2 rounded-lg transition-colors"
               >
                 {loading ? '🔄 กำลังโหลด...' : '🔍 ค้นหา'}
               </button>
@@ -144,7 +144,7 @@ export default function Recommendations() {
 
         {loading ? (
           <div className="text-center py-12">
-            <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-green-600 mx-auto"></div>
+            <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-yellow-600 mx-auto"></div>
             <p className="mt-4 text-gray-600">กำลังวิเคราะห์ข้อมูลจาก AI...</p>
           </div>
         ) : (
@@ -187,9 +187,9 @@ export default function Recommendations() {
                         <p className="text-sm text-gray-600">ราคาปัจจุบัน</p>
                         <p className="font-semibold text-lg text-gray-900">{(crop.currentPrice || 0).toLocaleString()} บาท/ตัน</p>
                       </div>
-                      <div className="text-center p-3 bg-green-50 rounded-lg">
+                      <div className="text-center p-3 bg-yellow-50 rounded-lg">
                         <p className="text-sm text-gray-600">ราคาคาดการณ์</p>
-                        <p className="font-semibold text-lg text-green-600">{(crop.predictedPrice || 0).toLocaleString()} บาท/ตัน</p>
+                        <p className="font-semibold text-lg text-yellow-600">{(crop.predictedPrice || 0).toLocaleString()} บาท/ตัน</p>
                       </div>
                       <div className="text-center p-3 bg-blue-50 rounded-lg">
                         <p className="text-sm text-gray-600">ต้นทุน</p>
@@ -231,7 +231,7 @@ export default function Recommendations() {
                         </div>
                         <div className="w-full bg-gray-200 rounded-full h-2">
                           <div 
-                            className={`h-2 rounded-full ${(selectedCrop.riskScore || 5) <= 3 ? 'bg-green-500' : (selectedCrop.riskScore || 5) <= 6 ? 'bg-yellow-500' : 'bg-red-500'}`}
+                            className={`h-2 rounded-full ${(selectedCrop.riskScore || 5) <= 3 ? 'bg-yellow-500' : (selectedCrop.riskScore || 5) <= 6 ? 'bg-orange-500' : 'bg-red-500'}`}
                             style={{ width: `${(selectedCrop.riskScore || 5) * 10}%` }}
                           ></div>
                         </div>
@@ -243,7 +243,7 @@ export default function Recommendations() {
                         </div>
                         <div className="w-full bg-gray-200 rounded-full h-2">
                           <div 
-                            className={`h-2 rounded-full ${(selectedCrop.returnScore || 5) >= 8 ? 'bg-green-500' : (selectedCrop.returnScore || 5) >= 6 ? 'bg-yellow-500' : 'bg-red-500'}`}
+                            className={`h-2 rounded-full ${(selectedCrop.returnScore || 5) >= 8 ? 'bg-yellow-500' : (selectedCrop.returnScore || 5) >= 6 ? 'bg-orange-500' : 'bg-red-500'}`}
                             style={{ width: `${(selectedCrop.returnScore || 5) * 10}%` }}
                           ></div>
                         </div>
@@ -252,8 +252,8 @@ export default function Recommendations() {
                   </div>
 
                   {/* ROI Calculation */}
-                  <div className="mb-6 p-4 bg-green-50 rounded-lg">
-                    <h4 className="font-semibold text-green-800 mb-2">💰 การคำนวณผลตอบแทน</h4>
+                  <div className="mb-6 p-4 bg-yellow-50 rounded-lg">
+                    <h4 className="font-semibold text-yellow-800 mb-2">💰 การคำนวณผลตอบแทน</h4>
                     <div className="space-y-2 text-sm">
                       <div className="flex justify-between">
                         <span>ต้นทุน:</span>
@@ -263,7 +263,7 @@ export default function Recommendations() {
                         <span>รายได้คาดการณ์:</span>
                         <span>{(selectedCrop.expectedReturn || 0).toLocaleString()} บาท/ไร่</span>
                       </div>
-                      <div className="flex justify-between font-semibold text-green-600">
+                      <div className="flex justify-between font-semibold text-yellow-600">
                         <span>ROI:</span>
                         <span>{calculateROI(selectedCrop.investment || 0, selectedCrop.expectedReturn || 0)}%</span>
                       </div>
@@ -286,7 +286,7 @@ export default function Recommendations() {
                     </Link>
                     <Link
                       href={`/market-analysis?crop=${selectedCrop.name}`}
-                      className="block w-full bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg text-center transition-colors"
+                      className="block w-full bg-yellow-500 hover:bg-yellow-600 text-white px-4 py-2 rounded-lg text-center transition-colors"
                     >
                       📊 วิเคราะห์ตลาด
                     </Link>

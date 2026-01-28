@@ -176,7 +176,7 @@ export default function Marketplace() {
             <div className="flex space-x-4">
               <Link
                 href="/marketplace/sell"
-                className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg transition-colors"
+                className="bg-yellow-500 hover:bg-yellow-600 text-white px-4 py-2 rounded-lg transition-colors"
               >
                 📝 ขายสินค้า
               </Link>
@@ -202,7 +202,7 @@ export default function Marketplace() {
                 placeholder="ค้นหาสินค้า, ผู้ขาย, หรือสถานที่..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500"
               />
             </div>
 
@@ -211,7 +211,7 @@ export default function Marketplace() {
               <select
                 value={selectedCategory}
                 onChange={(e) => setSelectedCategory(e.target.value)}
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500"
               >
                 {categories.map(category => (
                   <option key={category.id} value={category.id}>
@@ -226,7 +226,7 @@ export default function Marketplace() {
               <select
                 value={sortBy}
                 onChange={(e) => setSortBy(e.target.value)}
-                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
+                className="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500"
               >
                 <option value="newest">ใหม่ล่าสุด</option>
                 <option value="price-low">ราคาต่ำ-สูง</option>
@@ -243,7 +243,7 @@ export default function Marketplace() {
                 type="checkbox"
                 checked={showExpiringOnly}
                 onChange={(e) => setShowExpiringOnly(e.target.checked)}
-                className="rounded text-green-600 focus:ring-green-500"
+                className="rounded text-yellow-600 focus:ring-yellow-500"
               />
               <span className="text-sm text-gray-700">แสดงสินค้าใกล้หมดอายุเท่านั้น</span>
             </label>
@@ -277,7 +277,7 @@ export default function Marketplace() {
               <div className="text-2xl mr-4">💰</div>
               <div>
                 <p className="text-gray-600 text-sm">ราคาเฉลี่ย</p>
-                <p className="text-2xl font-bold text-green-600">
+                <p className="text-2xl font-bold text-yellow-600">
                   {Math.round(filteredProducts.reduce((sum, p) => sum + p.price, 0) / filteredProducts.length).toLocaleString()} บาท
                 </p>
               </div>
@@ -364,7 +364,7 @@ export default function Marketplace() {
                 )}
 
                 <div className="flex space-x-2">
-                  <button className="flex-1 bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg text-sm transition-colors">
+                  <button className="flex-1 bg-yellow-500 hover:bg-yellow-600 text-white px-4 py-2 rounded-lg text-sm transition-colors">
                     💬 สอบถาม
                   </button>
                   <button className="flex-1 bg-orange-600 hover:bg-orange-700 text-white px-4 py-2 rounded-lg text-sm transition-colors">
@@ -388,7 +388,7 @@ export default function Marketplace() {
                 setSelectedCategory('all');
                 setShowExpiringOnly(false);
               }}
-              className="bg-green-600 hover:bg-green-700 text-white px-6 py-2 rounded-lg transition-colors"
+              className="bg-yellow-500 hover:bg-yellow-600 text-white px-6 py-2 rounded-lg transition-colors"
             >
               ล้างตัวกรอง
             </button>

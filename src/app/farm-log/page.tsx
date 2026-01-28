@@ -120,7 +120,7 @@ export default function FarmLog() {
             <div className="flex space-x-4">
               <button
                 onClick={() => setShowForm(!showForm)}
-                className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg transition-colors"
+                className="bg-yellow-500 hover:bg-yellow-600 text-white px-4 py-2 rounded-lg transition-colors"
               >
                 {showForm ? '❌ ยกเลิก' : '➕ เพิ่มบันทึก'}
               </button>
@@ -149,7 +149,7 @@ export default function FarmLog() {
               <div className="text-2xl mr-4">📈</div>
               <div>
                 <p className="text-gray-600 text-sm">รายได้รวม</p>
-                <p className="text-2xl font-bold text-green-600">{stats.totalIncome.toLocaleString()} บาท</p>
+                <p className="text-2xl font-bold text-yellow-600">{stats.totalIncome.toLocaleString()} บาท</p>
               </div>
             </div>
           </div>
@@ -193,7 +193,7 @@ export default function FarmLog() {
                   value={formData.cropName}
                   onChange={(e) => handleInputChange('cropName', e.target.value)}
                   required
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500"
                 >
                   <option value="">เลือกพืช</option>
                   {crops.map(crop => (
@@ -208,7 +208,7 @@ export default function FarmLog() {
                   value={formData.date}
                   onChange={(e) => handleInputChange('date', e.target.value)}
                   required
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500"
                 />
               </div>
               <div>
@@ -219,7 +219,7 @@ export default function FarmLog() {
                   value={formData.area}
                   onChange={(e) => handleInputChange('area', e.target.value)}
                   required
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500"
                 />
               </div>
               <div>
@@ -229,7 +229,7 @@ export default function FarmLog() {
                   value={formData.cost}
                   onChange={(e) => handleInputChange('cost', e.target.value)}
                   required
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500"
                 />
               </div>
               <div>
@@ -239,7 +239,7 @@ export default function FarmLog() {
                   value={formData.income}
                   onChange={(e) => handleInputChange('income', e.target.value)}
                   required
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500"
                 />
               </div>
               <div className="md:col-span-2 lg:col-span-1">
@@ -248,14 +248,14 @@ export default function FarmLog() {
                   type="text"
                   value={formData.notes}
                   onChange={(e) => handleInputChange('notes', e.target.value)}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500"
                   placeholder="บันทึกเพิ่มเติม..."
                 />
               </div>
               <div className="md:col-span-2 lg:col-span-3 flex space-x-4">
                 <button
                   type="submit"
-                  className="bg-green-600 hover:bg-green-700 text-white px-6 py-2 rounded-lg transition-colors"
+                  className="bg-yellow-500 hover:bg-yellow-600 text-white px-6 py-2 rounded-lg transition-colors"
                 >
                   💾 บันทึก
                 </button>
@@ -306,7 +306,7 @@ export default function FarmLog() {
                     <td className="py-3 px-4 text-red-600 font-medium">
                       {(record.cost || 0).toLocaleString()} บาท
                     </td>
-                    <td className="py-3 px-4 text-green-600 font-medium">
+                    <td className="py-3 px-4 text-yellow-600 font-medium">
                       {(record.income || 0).toLocaleString()} บาท
                     </td>
                     <td className="py-3 px-4">
@@ -404,7 +404,7 @@ export default function FarmLog() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <Link
               href="/recommendations"
-              className="bg-green-600 hover:bg-green-700 text-white px-4 py-3 rounded-lg text-center transition-colors"
+              className="bg-yellow-500 hover:bg-yellow-600 text-white px-4 py-3 rounded-lg text-center transition-colors"
             >
               🌱 ดูคำแนะนำการปลูก
             </Link>

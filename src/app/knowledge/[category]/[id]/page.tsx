@@ -9,10 +9,10 @@ export default function ArticleDetail() {
 
   return (
     <div className="min-h-screen bg-gray-50">
-      <div className="bg-green-600 text-white shadow-lg">
+      <div className="bg-yellow-600 text-white shadow-lg">
         <div className="container mx-auto px-4 py-4">
           <div className="flex items-center space-x-3">
-            <Link href={`/knowledge/${category}`} className="text-white hover:text-green-200">
+            <Link href={`/knowledge/${category}`} className="text-white hover:text-yellow-200">
               <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
               </svg>

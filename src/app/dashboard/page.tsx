@@ -85,19 +85,19 @@ export default function Dashboard() {
   };
 
   const getRiskColor = (score: number) => {
-    if (score <= 2) return 'text-green-600 bg-green-100';
-    if (score <= 4) return 'text-yellow-600 bg-yellow-100';
+    if (score <= 2) return 'text-yellow-600 bg-yellow-100';
+    if (score <= 4) return 'text-orange-600 bg-orange-100';
     return 'text-red-600 bg-red-100';
   };
 
   const getReturnColor = (score: number) => {
-    if (score >= 8) return 'text-green-600 bg-green-100';
-    if (score >= 6) return 'text-yellow-600 bg-yellow-100';
+    if (score >= 8) return 'text-yellow-600 bg-yellow-100';
+    if (score >= 6) return 'text-orange-600 bg-orange-100';
     return 'text-red-600 bg-red-100';
   };
 
   const getTrendColor = (trend: string) => {
-    if (trend === 'rising') return 'text-green-600';
+    if (trend === 'rising') return 'text-yellow-600';
     if (trend === 'falling') return 'text-red-600';
     return 'text-gray-600';
   };
@@ -112,7 +112,7 @@ export default function Dashboard() {
     return (
       <div className="min-h-screen bg-gray-50 flex items-center justify-center">
         <div className="text-center">
-          <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-green-600 mx-auto"></div>
+          <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-yellow-600 mx-auto"></div>
           <p className="mt-4 text-gray-600">กำลังโหลดข้อมูลจาก AI...</p>
         </div>
       </div>
@@ -127,7 +127,7 @@ export default function Dashboard() {
           <p className="text-gray-600 mb-4">{error}</p>
           <button 
             onClick={fetchData}
-            className="bg-green-600 hover:bg-green-700 text-white px-6 py-2 rounded-lg transition-colors"
+            className="bg-yellow-500 hover:bg-yellow-600 text-white px-6 py-2 rounded-lg transition-colors"
           >
             ลองใหม่
           </button>
@@ -184,7 +184,7 @@ export default function Dashboard() {
               <div className="text-2xl mr-4">💰</div>
               <div>
                 <p className="text-gray-600 text-sm">รายได้คาดการณ์</p>
-                <p className="text-2xl font-bold text-green-600">
+                <p className="text-2xl font-bold text-yellow-600">
                   {recommendations.reduce((sum, crop) => sum + crop.expectedReturn, 0).toLocaleString()} บาท
                 </p>
               </div>
@@ -225,7 +225,7 @@ export default function Dashboard() {
                   <span className="text-sm text-gray-500">อัปเดตเมื่อ: {new Date().toLocaleString('th-TH')}</span>
                   <button 
                     onClick={fetchData}
-                    className="bg-green-600 hover:bg-green-700 text-white px-3 py-1 rounded text-sm transition-colors"
+                    className="bg-yellow-500 hover:bg-yellow-600 text-white px-3 py-1 rounded text-sm transition-colors"
                   >
                     🔄 อัปเดต
                   </button>
@@ -264,7 +264,7 @@ export default function Dashboard() {
                       </div>
                       <div>
                         <p className="text-gray-600">ราคาคาดการณ์</p>
-                        <p className="font-semibold text-green-600">{(crop.predictedPrice || 0).toLocaleString()} บาท/ตัน</p>
+                        <p className="font-semibold text-yellow-600">{(crop.predictedPrice || 0).toLocaleString()} บาท/ตัน</p>
                       </div>
                       <div>
                         <p className="text-gray-600">ต้นทุน</p>
@@ -272,7 +272,7 @@ export default function Dashboard() {
                       </div>
                       <div>
                         <p className="text-gray-600">กำไรคาดการณ์</p>
-                        <p className="font-semibold text-green-600">{(crop.expectedReturn || 0).toLocaleString()} บาท/ไร่</p>
+                        <p className="font-semibold text-yellow-600">{(crop.expectedReturn || 0).toLocaleString()} บาท/ไร่</p>
                       </div>
                     </div>
 
@@ -289,7 +289,7 @@ export default function Dashboard() {
                     <div className="mt-4 flex space-x-2">
                       <Link
                         href={`/crop/${crop.name}`}
-                        className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg text-sm transition-colors"
+                        className="bg-yellow-500 hover:bg-yellow-600 text-white px-4 py-2 rounded-lg text-sm transition-colors"
                       >
                         ดูรายละเอียด
                       </Link>
@@ -334,7 +334,7 @@ export default function Dashboard() {
                 </div>
                 <Link
                   href="/prices"
-                  className="block text-center mt-4 text-green-600 hover:text-green-700 text-sm"
+                  className="block text-center mt-4 text-yellow-600 hover:text-yellow-700 text-sm"
                 >
                   ดูการวิเคราะห์เพิ่มเติม →
                 </Link>
@@ -363,11 +363,11 @@ export default function Dashboard() {
                   <p className="text-sm text-blue-800 font-semibold mb-2">📅 พยากรณ์:</p>
                   <p className="text-sm text-blue-700">{weatherData.forecast || 'สภาพอากาศปกติ'}</p>
                 </div>
-                <div className="mt-3 p-3 bg-green-50 rounded-lg">
-                  <p className="text-sm text-green-800 font-semibold mb-2">🌱 คำแนะนำ:</p>
+                <div className="mt-3 p-3 bg-yellow-50 rounded-lg">
+                  <p className="text-sm text-yellow-800 font-semibold mb-2">🌱 คำแนะนำ:</p>
                   <ul className="space-y-1">
                     {(weatherData.recommendations || []).map((rec, idx) => (
-                      <li key={idx} className="text-sm text-green-700">• {rec}</li>
+                      <li key={idx} className="text-sm text-yellow-700">• {rec}</li>
                     ))}
                   </ul>
                 </div>
@@ -405,7 +405,7 @@ export default function Dashboard() {
               <div className="space-y-3">
                 <div className="flex items-center justify-between">
                   <span className="text-gray-600">ระบบ AI</span>
-                  <span className="text-green-600 font-semibold">✅ ทำงานปกติ</span>
+                  <span className="text-yellow-600 font-semibold">✅ ทำงานปกติ</span>
                 </div>
                 <div className="flex items-center justify-between">
                   <span className="text-gray-600">ข้อมูลล่าสุด</span>

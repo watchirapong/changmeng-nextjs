@@ -119,11 +119,11 @@ export default function MarketplaceSell() {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Header */}
-      <div className="bg-green-600 text-white shadow-lg">
+      <div className="bg-yellow-600 text-white shadow-lg">
         <div className="container mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-3">
-              <Link href="/marketplace" className="text-white hover:text-green-200">
+              <Link href="/marketplace" className="text-white hover:text-yellow-200">
                 <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
                 </svg>
@@ -154,7 +154,7 @@ export default function MarketplaceSell() {
                   value={formData.name}
                   onChange={handleInputChange}
                   required
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-yellow-500"
                   placeholder="เช่น ข้าวหอมมะลิ, ผักบุ้ง, มะเขือเทศ"
                 />
               </div>
@@ -168,7 +168,7 @@ export default function MarketplaceSell() {
                   value={formData.category}
                   onChange={handleInputChange}
                   required
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-yellow-500"
                 >
                   <option value="">เลือกหมวดหมู่</option>
                   {categories.map((category) => (
@@ -194,7 +194,7 @@ export default function MarketplaceSell() {
                   required
                   min="0"
                   step="0.01"
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-yellow-500"
                   placeholder="0"
                 />
               </div>
@@ -208,7 +208,7 @@ export default function MarketplaceSell() {
                   value={formData.unit}
                   onChange={handleInputChange}
                   required
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-yellow-500"
                 >
                   {units.map((unit) => (
                     <option key={unit} value={unit}>
@@ -230,7 +230,7 @@ export default function MarketplaceSell() {
                   required
                   min="0"
                   step="0.01"
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-yellow-500"
                   placeholder="0.00"
                 />
               </div>
@@ -247,7 +247,7 @@ export default function MarketplaceSell() {
                   name="expiryDate"
                   value={formData.expiryDate}
                   onChange={handleInputChange}
-                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
+                  className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-yellow-500"
                 />
               </div>
 
@@ -258,7 +258,7 @@ export default function MarketplaceSell() {
                     id="isExpiringSoon"
                     checked={formData.isExpiringSoon}
                     onChange={(e) => setFormData(prev => ({ ...prev, isExpiringSoon: e.target.checked }))}
-                    className="h-4 w-4 text-green-600 focus:ring-green-500 border-gray-300 rounded"
+                    className="h-4 w-4 text-yellow-600 focus:ring-yellow-500 border-gray-300 rounded"
                   />
                   <label htmlFor="isExpiringSoon" className="ml-2 block text-sm text-gray-700">
                     สินค้าใกล้หมดอายุ (ลดราคา)
@@ -277,7 +277,7 @@ export default function MarketplaceSell() {
                       onChange={handleInputChange}
                       min="0"
                       max="100"
-                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
+                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-yellow-500"
                       placeholder="0"
                     />
                   </div>
@@ -296,7 +296,7 @@ export default function MarketplaceSell() {
                 value={formData.location}
                 onChange={handleInputChange}
                 required
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
+                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-yellow-500"
                 placeholder="เช่น อำเภอเมือง จังหวัดนครราชสีมา"
               />
             </div>
@@ -311,7 +311,7 @@ export default function MarketplaceSell() {
                 value={formData.description}
                 onChange={handleInputChange}
                 rows={4}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
+                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-yellow-500"
                 placeholder="อธิบายรายละเอียดสินค้า คุณภาพ การเก็บรักษา ฯลฯ"
               />
             </div>
@@ -326,7 +326,7 @@ export default function MarketplaceSell() {
                 multiple
                 accept="image/*"
                 onChange={handleImageChange}
-                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
+                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-yellow-500"
               />
               <p className="text-sm text-gray-500 mt-1">
                 สามารถอัปโหลดได้หลายรูป (สูงสุด 5 รูป)
@@ -366,7 +366,7 @@ export default function MarketplaceSell() {
                   </div>
                   {formData.isExpiringSoon && formData.discount > 0 && (
                     <>
-                      <div className="flex justify-between text-green-600">
+                      <div className="flex justify-between text-yellow-600">
                         <span>ส่วนลด:</span>
                         <span>-{formData.discount}%</span>
                       </div>
@@ -395,7 +395,7 @@ export default function MarketplaceSell() {
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="px-6 py-2 bg-green-600 text-white rounded-md hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
+                className="px-6 py-2 bg-yellow-500 text-white rounded-md hover:bg-yellow-600 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:ring-offset-2 disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
               >
                 {isSubmitting ? (
                   <div className="flex items-center space-x-2">

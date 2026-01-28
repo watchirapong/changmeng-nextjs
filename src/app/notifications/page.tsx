@@ -155,11 +155,11 @@ export default function Notifications() {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Header */}
-      <div className="bg-green-600 text-white shadow-lg">
+      <div className="bg-yellow-600 text-white shadow-lg">
         <div className="container mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-3">
-              <Link href="/" className="text-white hover:text-green-200">
+              <Link href="/" className="text-white hover:text-yellow-200">
                 <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
                 </svg>
@@ -173,7 +173,7 @@ export default function Notifications() {
             </div>
             <button
               onClick={markAllAsRead}
-              className="text-sm hover:text-green-200 transition-colors"
+              className="text-sm hover:text-yellow-200 transition-colors"
             >
               อ่านทั้งหมด
             </button>
@@ -189,7 +189,7 @@ export default function Notifications() {
               onClick={() => setFilter('all')}
               className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
                 filter === 'all'
-                  ? 'bg-green-600 text-white'
+                  ? 'bg-yellow-500 text-white'
                   : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
               }`}
             >
@@ -199,7 +199,7 @@ export default function Notifications() {
               onClick={() => setFilter('unread')}
               className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
                 filter === 'unread'
-                  ? 'bg-green-600 text-white'
+                  ? 'bg-yellow-500 text-white'
                   : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
               }`}
             >
@@ -209,7 +209,7 @@ export default function Notifications() {
               onClick={() => setFilter('price')}
               className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
                 filter === 'price'
-                  ? 'bg-green-600 text-white'
+                  ? 'bg-yellow-500 text-white'
                   : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
               }`}
             >
@@ -219,7 +219,7 @@ export default function Notifications() {
               onClick={() => setFilter('disease')}
               className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
                 filter === 'disease'
-                  ? 'bg-green-600 text-white'
+                  ? 'bg-yellow-500 text-white'
                   : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
               }`}
             >
@@ -229,7 +229,7 @@ export default function Notifications() {
               onClick={() => setFilter('order')}
               className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
                 filter === 'order'
-                  ? 'bg-green-600 text-white'
+                  ? 'bg-yellow-500 text-white'
                   : 'bg-gray-100 text-gray-700 hover:bg-gray-200'
               }`}
             >
@@ -253,7 +253,7 @@ export default function Notifications() {
               <div
                 key={notification.id}
                 className={`bg-white rounded-lg shadow-md p-4 border-l-4 ${getPriorityColor(notification.priority)} ${
-                  !notification.isRead ? 'ring-2 ring-green-200' : ''
+                  !notification.isRead ? 'ring-2 ring-yellow-200' : ''
                 }`}
               >
                 <div className="flex items-start space-x-3">
@@ -285,7 +285,7 @@ export default function Notifications() {
                     {!notification.isRead && (
                       <button
                         onClick={() => markAsRead(notification.id)}
-                        className="text-xs text-green-600 hover:text-green-700 mt-2 transition-colors"
+                        className="text-xs text-yellow-600 hover:text-yellow-700 mt-2 transition-colors"
                       >
                         ทำเครื่องหมายว่าอ่านแล้ว
                       </button>
@@ -308,7 +308,7 @@ export default function Notifications() {
               </div>
               <label className="relative inline-flex items-center cursor-pointer">
                 <input type="checkbox" className="sr-only peer" defaultChecked />
-                <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-green-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-green-600"></div>
+                <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-yellow-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-yellow-500"></div>
               </label>
             </div>
             
@@ -319,7 +319,7 @@ export default function Notifications() {
               </div>
               <label className="relative inline-flex items-center cursor-pointer">
                 <input type="checkbox" className="sr-only peer" defaultChecked />
-                <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-green-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-green-600"></div>
+                <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-yellow-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-yellow-500"></div>
               </label>
             </div>
             
@@ -330,7 +330,7 @@ export default function Notifications() {
               </div>
               <label className="relative inline-flex items-center cursor-pointer">
                 <input type="checkbox" className="sr-only peer" defaultChecked />
-                <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-green-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-green-600"></div>
+                <div className="w-11 h-6 bg-gray-200 peer-focus:outline-none peer-focus:ring-4 peer-focus:ring-yellow-300 rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-gray-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-yellow-500"></div>
               </label>
             </div>
           </div>

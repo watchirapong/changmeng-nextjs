@@ -99,7 +99,7 @@ export default function Profile() {
   const getStatusColor = (status: string) => {
     switch (status) {
       case 'completed':
-        return 'bg-green-100 text-green-800';
+        return 'bg-yellow-100 text-yellow-800';
       case 'pending':
         return 'bg-yellow-100 text-yellow-800';
       case 'cancelled':
@@ -138,18 +138,18 @@ export default function Profile() {
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Header */}
-      <div className="bg-green-600 text-white shadow-lg">
+      <div className="bg-yellow-600 text-white shadow-lg">
         <div className="container mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
             <div className="flex items-center space-x-3">
-              <Link href="/" className="text-white hover:text-green-200">
+              <Link href="/" className="text-white hover:text-yellow-200">
                 <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
                 </svg>
               </Link>
               <h1 className="text-xl font-bold">โปรไฟล์</h1>
             </div>
-            <button className="text-sm hover:text-green-200 transition-colors">
+            <button className="text-sm hover:text-yellow-200 transition-colors">
               แก้ไข
             </button>
           </div>
@@ -160,8 +160,8 @@ export default function Profile() {
         {/* Profile Header */}
         <div className="bg-white rounded-lg shadow-md p-6 mb-6">
           <div className="flex items-center space-x-4">
-            <div className="w-20 h-20 bg-green-100 rounded-full flex items-center justify-center">
-              <svg className="w-10 h-10 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <div className="w-20 h-20 bg-yellow-100 rounded-full flex items-center justify-center">
+              <svg className="w-10 h-10 text-yellow-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
               </svg>
             </div>
@@ -181,7 +181,7 @@ export default function Profile() {
               </div>
             </div>
             <div className="text-right">
-              <div className="text-2xl font-bold text-green-600">{userProfile.totalTransactions}</div>
+              <div className="text-2xl font-bold text-yellow-600">{userProfile.totalTransactions}</div>
               <div className="text-sm text-gray-600">ธุรกรรม</div>
             </div>
           </div>
@@ -195,7 +195,7 @@ export default function Profile() {
                 onClick={() => setActiveTab('profile')}
                 className={`py-4 px-1 border-b-2 font-medium text-sm ${
                   activeTab === 'profile'
-                    ? 'border-green-500 text-green-600'
+                    ? 'border-yellow-500 text-yellow-600'
                     : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
                 }`}
               >
@@ -205,7 +205,7 @@ export default function Profile() {
                 onClick={() => setActiveTab('transactions')}
                 className={`py-4 px-1 border-b-2 font-medium text-sm ${
                   activeTab === 'transactions'
-                    ? 'border-green-500 text-green-600'
+                    ? 'border-yellow-500 text-yellow-600'
                     : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
                 }`}
               >
@@ -215,7 +215,7 @@ export default function Profile() {
                 onClick={() => setActiveTab('reviews')}
                 className={`py-4 px-1 border-b-2 font-medium text-sm ${
                   activeTab === 'reviews'
-                    ? 'border-green-500 text-green-600'
+                    ? 'border-yellow-500 text-yellow-600'
                     : 'border-transparent text-gray-500 hover:text-gray-700 hover:border-gray-300'
                 }`}
               >
@@ -233,7 +233,7 @@ export default function Profile() {
                     <input
                       type="text"
                       value={userProfile.name}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
+                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-yellow-500"
                       readOnly
                     />
                   </div>
@@ -242,7 +242,7 @@ export default function Profile() {
                     <input
                       type="email"
                       value={userProfile.email}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
+                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-yellow-500"
                       readOnly
                     />
                   </div>
@@ -251,7 +251,7 @@ export default function Profile() {
                     <input
                       type="tel"
                       value={userProfile.phone}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
+                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-yellow-500"
                       readOnly
                     />
                   </div>
@@ -260,7 +260,7 @@ export default function Profile() {
                     <input
                       type="text"
                       value={userProfile.location}
-                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-green-500"
+                      className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-yellow-500"
                       readOnly
                     />
                   </div>
@@ -270,7 +270,7 @@ export default function Profile() {
                   <h3 className="text-lg font-semibold text-gray-900 mb-4">สถิติการใช้งาน</h3>
                   <div className="grid md:grid-cols-3 gap-6">
                     <div className="bg-gray-50 p-4 rounded-lg">
-                      <div className="text-2xl font-bold text-green-600">{userProfile.totalTransactions}</div>
+                      <div className="text-2xl font-bold text-yellow-600">{userProfile.totalTransactions}</div>
                       <div className="text-sm text-gray-600">ธุรกรรมทั้งหมด</div>
                     </div>
                     <div className="bg-gray-50 p-4 rounded-lg">
@@ -309,7 +309,7 @@ export default function Profile() {
                       <div className="flex items-center justify-between">
                         <div className="flex items-center space-x-3">
                           <div className={`w-3 h-3 rounded-full ${
-                            transaction.type === 'sell' ? 'bg-green-500' : 'bg-blue-500'
+                            transaction.type === 'sell' ? 'bg-yellow-500' : 'bg-blue-500'
                           }`}></div>
                           <div>
                             <h4 className="font-medium text-gray-900">
@@ -364,7 +364,7 @@ export default function Profile() {
                           <div className="flex items-center space-x-2 mb-2">
                             <span className="font-medium text-gray-900">{review.from}</span>
                             <span className={`px-2 py-1 text-xs rounded-full ${
-                              review.type === 'buyer' ? 'bg-blue-100 text-blue-800' : 'bg-green-100 text-green-800'
+                              review.type === 'buyer' ? 'bg-blue-100 text-blue-800' : 'bg-yellow-100 text-yellow-800'
                             }`}>
                               {review.type === 'buyer' ? 'ผู้ซื้อ' : 'ผู้ขาย'}
                             </span>

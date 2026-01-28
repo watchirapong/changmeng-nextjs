@@ -58,7 +58,7 @@ export default function TestAI() {
           <button
             onClick={testAI}
             disabled={loading}
-            className="bg-green-600 hover:bg-green-700 disabled:bg-gray-400 text-white px-6 py-3 rounded-lg font-semibold transition-colors"
+            className="bg-yellow-500 hover:bg-yellow-600 disabled:bg-gray-400 text-white px-6 py-3 rounded-lg font-semibold transition-colors"
           >
             {loading ? '🔄 กำลังทดสอบ...' : '🚀 เริ่มทดสอบ AI'}
           </button>
@@ -139,7 +139,7 @@ export default function TestAI() {
                   <ul className="space-y-1 text-sm">
                     {results.weatherData.recommendations?.map((rec: any, index: number) => (
                       <li key={index} className="flex items-start">
-                        <span className="text-green-600 mr-2">•</span>
+                        <span className="text-yellow-600 mr-2">•</span>
                         {rec}
                       </li>
                     ))}

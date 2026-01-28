@@ -23,8 +23,8 @@ export default function Navigation() {
       <div className="max-w-7xl mx-auto px-4">
         <div className="flex justify-between items-center py-2">
           <div className="flex items-center space-x-1">
-            <span className="text-2xl">🌾</span>
-            <span className="font-bold text-green-600 text-sm">AgriLearn</span>
+            <span className="text-2xl">🌻</span>
+            <span className="font-bold text-yellow-600 text-sm">AgriLearn</span>
           </div>
           
           <div className="hidden md:flex space-x-1">
@@ -34,8 +34,8 @@ export default function Navigation() {
                 href={item.href}
                 className={`px-3 py-2 rounded-lg text-sm font-medium transition-colors ${
                   pathname === item.href
-                    ? 'bg-green-100 text-green-700'
-                    : 'text-gray-600 hover:text-green-600 hover:bg-green-50'
+                    ? 'bg-yellow-100 text-yellow-700'
+                    : 'text-gray-600 hover:text-yellow-600 hover:bg-yellow-50'
                 }`}
               >
                 <span className="hidden lg:inline">{item.icon} {item.label}</span>
@@ -46,7 +46,7 @@ export default function Navigation() {
 
           {/* Mobile menu button */}
           <div className="md:hidden">
-            <button className="p-2 rounded-lg text-gray-600 hover:text-green-600 hover:bg-green-50">
+            <button className="p-2 rounded-lg text-gray-600 hover:text-yellow-600 hover:bg-yellow-50">
               <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
               </svg>
@@ -63,8 +63,8 @@ export default function Navigation() {
                 href={item.href}
                 className={`p-2 rounded-lg text-center text-xs transition-colors ${
                   pathname === item.href
-                    ? 'bg-green-100 text-green-700'
-                    : 'text-gray-600 hover:text-green-600 hover:bg-green-50'
+                    ? 'bg-yellow-100 text-yellow-700'
+                    : 'text-gray-600 hover:text-yellow-600 hover:bg-yellow-50'
                 }`}
               >
                 <div className="text-lg mb-1">{item.icon}</div>

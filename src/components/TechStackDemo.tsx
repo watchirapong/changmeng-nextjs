@@ -95,7 +95,7 @@ export default function TechStackDemo() {
           <span className="bg-blue-500 px-3 py-1 rounded-full">Next.js</span>
           <span className="bg-blue-500 px-3 py-1 rounded-full">React 19</span>
           <span className="bg-blue-500 px-3 py-1 rounded-full">TypeScript 5</span>
-          <span className="bg-green-500 px-3 py-1 rounded-full">MongoDB</span>
+          <span className="bg-yellow-500 px-3 py-1 rounded-full">MongoDB</span>
           <span className="bg-purple-500 px-3 py-1 rounded-full">Socket.io</span>
         </div>
       </div>
@@ -103,7 +103,7 @@ export default function TechStackDemo() {
       {/* Connection Status */}
       <div className="text-center">
         <div className={`inline-flex items-center px-4 py-2 rounded-full ${
-          isConnected ? 'bg-green-500' : 'bg-red-500'
+          isConnected ? 'bg-yellow-500' : 'bg-red-500'
         }`}>
           <div className={`w-2 h-2 rounded-full mr-2 ${
             isConnected ? 'bg-white' : 'bg-white'
@@ -139,7 +139,7 @@ export default function TechStackDemo() {
             </div>
             <button
               type="submit"
-              className="w-full bg-green-600 hover:bg-green-700 text-white py-2 px-4 rounded transition-colors"
+              className="w-full bg-yellow-500 hover:bg-yellow-600 text-white py-2 px-4 rounded transition-colors"
             >
               Create User
             </button>

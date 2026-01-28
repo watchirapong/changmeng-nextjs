@@ -15,7 +15,7 @@ export default function Knowledge() {
                 <p className="text-gray-600">คู่มือและเทคนิคการเกษตร</p>
               </div>
             </div>
-            <Link href="/dashboard" className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg transition-colors">
+            <Link href="/dashboard" className="bg-yellow-500 hover:bg-yellow-600 text-white px-4 py-2 rounded-lg transition-colors">
               🏠 หน้าแรก
             </Link>
           </div>
@@ -33,7 +33,7 @@ export default function Knowledge() {
             <div className="text-4xl mb-4">🌾</div>
             <h3 className="font-semibold text-gray-900 mb-2">การปลูกข้าว</h3>
             <p className="text-gray-600 mb-4">เรียนรู้เทคนิคการปลูกข้าว</p>
-            <div className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg inline-block">
+            <div className="bg-yellow-500 hover:bg-yellow-600 text-white px-4 py-2 rounded-lg inline-block">
               ดูบทความ
             </div>
           </Link>
@@ -42,7 +42,7 @@ export default function Knowledge() {
             <div className="text-4xl mb-4">🥬</div>
             <h3 className="font-semibold text-gray-900 mb-2">การปลูกผัก</h3>
             <p className="text-gray-600 mb-4">การปลูกผักในโรงเรือน</p>
-            <div className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg inline-block">
+            <div className="bg-yellow-500 hover:bg-yellow-600 text-white px-4 py-2 rounded-lg inline-block">
               ดูบทความ
             </div>
           </Link>
@@ -51,7 +51,7 @@ export default function Knowledge() {
             <div className="text-4xl mb-4">🍎</div>
             <h3 className="font-semibold text-gray-900 mb-2">การปลูกผลไม้</h3>
             <p className="text-gray-600 mb-4">การดูแลสวนผลไม้</p>
-            <div className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg inline-block">
+            <div className="bg-yellow-500 hover:bg-yellow-600 text-white px-4 py-2 rounded-lg inline-block">
               ดูบทความ
             </div>
           </Link>
@@ -62,7 +62,7 @@ export default function Knowledge() {
             <div className="text-4xl mb-4">🌿</div>
             <h3 className="font-semibold text-gray-900 mb-2">สมุนไพร</h3>
             <p className="text-gray-600 mb-4">การปลูกและใช้สมุนไพร</p>
-            <div className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg inline-block">
+            <div className="bg-yellow-500 hover:bg-yellow-600 text-white px-4 py-2 rounded-lg inline-block">
               ดูบทความ
             </div>
           </Link>
@@ -71,7 +71,7 @@ export default function Knowledge() {
             <div className="text-4xl mb-4">🌱</div>
             <h3 className="font-semibold text-gray-900 mb-2">ปุ๋ยและการบำรุงดิน</h3>
             <p className="text-gray-600 mb-4">การใช้ปุ๋ยอย่างถูกต้อง</p>
-            <div className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg inline-block">
+            <div className="bg-yellow-500 hover:bg-yellow-600 text-white px-4 py-2 rounded-lg inline-block">
               ดูบทความ
             </div>
           </Link>
@@ -80,7 +80,7 @@ export default function Knowledge() {
             <div className="text-4xl mb-4">🐛</div>
             <h3 className="font-semibold text-gray-900 mb-2">ศัตรูพืช</h3>
             <p className="text-gray-600 mb-4">การป้องกันและกำจัดศัตรูพืช</p>
-            <div className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg inline-block">
+            <div className="bg-yellow-500 hover:bg-yellow-600 text-white px-4 py-2 rounded-lg inline-block">
               ดูบทความ
             </div>
           </Link>

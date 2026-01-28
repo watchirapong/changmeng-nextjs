@@ -56,7 +56,7 @@ export default function MarketAnalysis() {
   }, [selectedCrop]);
 
   const getTrendColor = (trend: string) => {
-    if (trend === 'rising') return 'text-green-600';
+    if (trend === 'rising') return 'text-yellow-600';
     if (trend === 'falling') return 'text-red-600';
     return 'text-gray-600';
   };
@@ -84,7 +84,7 @@ export default function MarketAnalysis() {
                 <p className="text-gray-600">ติดตามราคา แนวโน้ม และการวิเคราะห์ตลาด</p>
               </div>
             </div>
-            <Link href="/dashboard" className="bg-green-600 hover:bg-green-700 text-white px-4 py-2 rounded-lg transition-colors">
+            <Link href="/dashboard" className="bg-yellow-500 hover:bg-yellow-600 text-white px-4 py-2 rounded-lg transition-colors">
               🏠 หน้าแรก
             </Link>
           </div>
@@ -101,7 +101,7 @@ export default function MarketAnalysis() {
                 <select
                   value={selectedCrop}
                   onChange={(e) => setSelectedCrop(e.target.value)}
-                  className="px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500"
+                  className="px-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-yellow-500"
                 >
                   {crops.map(crop => (
                     <option key={crop.id} value={crop.id}>{crop.icon} {crop.name}</option>
@@ -154,7 +154,7 @@ export default function MarketAnalysis() {
 
         {loading ? (
           <div className="text-center py-12">
-            <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-green-600 mx-auto"></div>
+            <div className="animate-spin rounded-full h-32 w-32 border-b-2 border-yellow-600 mx-auto"></div>
             <p className="mt-4 text-gray-600">กำลังวิเคราะห์ข้อมูลตลาด...</p>
           </div>
         ) : (
@@ -208,7 +208,7 @@ export default function MarketAnalysis() {
                       {index > 0 && (
                         <span className={`text-sm ${
                           (item.price || 0) > (marketData.priceHistory[index - 1].price || 0)
-                            ? 'text-green-600' 
+                            ? 'text-yellow-600' 
                             : 'text-red-600'
                         }`}>
                           {(item.price || 0) > (marketData.priceHistory[index - 1].price || 0) ? '+' : ''}
@@ -226,12 +226,12 @@ export default function MarketAnalysis() {
               <div className="bg-white rounded-lg shadow-sm p-6">
                 <h3 className="text-lg font-semibold text-gray-900 mb-4">การคาดการณ์ราคา</h3>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div className="p-4 bg-green-50 rounded-lg">
-                    <h4 className="font-semibold text-green-800 mb-2">📅 เดือนหน้า</h4>
-                    <div className="text-2xl font-bold text-green-600 mb-2">
+                  <div className="p-4 bg-yellow-50 rounded-lg">
+                    <h4 className="font-semibold text-yellow-800 mb-2">📅 เดือนหน้า</h4>
+                    <div className="text-2xl font-bold text-yellow-600 mb-2">
                       {(marketData.prediction?.nextMonth || 0).toLocaleString()} บาท/ตัน
                     </div>
-                    <div className="text-sm text-green-700">
+                    <div className="text-sm text-yellow-700">
                       {(marketData.prediction?.nextMonth || 0) > (marketData.currentPrice || 0) ? '+' : ''}
                       {calculatePriceChange(marketData.prediction?.nextMonth || 0, marketData.currentPrice || 0)}% 
                       จากราคาปัจจุบัน
@@ -291,9 +291,9 @@ export default function MarketAnalysis() {
                     <li>• การค้าระหว่างประเทศ</li>
                   </ul>
                 </div>
-                <div className="p-4 bg-green-50 rounded-lg">
-                  <h4 className="font-semibold text-green-800 mb-2">🌦️ ปัจจัยธรรมชาติ</h4>
-                  <ul className="text-sm text-green-700 space-y-1">
+                <div className="p-4 bg-yellow-50 rounded-lg">
+                  <h4 className="font-semibold text-yellow-800 mb-2">🌦️ ปัจจัยธรรมชาติ</h4>
+                  <ul className="text-sm text-yellow-700 space-y-1">
                     <li>• สภาพอากาศ</li>
                     <li>• ภัยธรรมชาติ</li>
                     <li>• ฤดูกาล</li>
@@ -316,7 +316,7 @@ export default function MarketAnalysis() {
               <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
                 <Link
                   href="/recommendations"
-                  className="bg-green-600 hover:bg-green-700 text-white px-4 py-3 rounded-lg text-center transition-colors"
+                  className="bg-yellow-500 hover:bg-yellow-600 text-white px-4 py-3 rounded-lg text-center transition-colors"
                 >
                   🌱 ดูคำแนะนำการปลูก
                 </Link>
