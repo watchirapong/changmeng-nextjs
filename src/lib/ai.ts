@@ -203,7 +203,7 @@ class AIService {
 
   // Gemini Chat API call
   private async callGeminiChatAPI(prompt: string): Promise<string> {
-    try {
+    try { 
       if (!this.config.geminiApiKey) {
         console.error('Gemini API key is missing!');
         return this.getMockChatResponse(prompt);
