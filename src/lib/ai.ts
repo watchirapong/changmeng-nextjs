@@ -204,7 +204,15 @@ class AIService {
   // Gemini Chat API call
   private async callGeminiChatAPI(prompt: string): Promise<string> {
     try {
-      const response = await fetch(`https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash:generateContent?key=${this.config.geminiApiKey}`, {
+      if (!this.config.geminiApiKey) {
+        console.error('Gemini API key is missing!');
+        return this.getMockChatResponse(prompt);
+      }
+
+      const apiUrl = `https://generativelanguage.googleapis.com/v1/models/gemini-2.0-flash:generateContent?key=${this.config.geminiApiKey}`;
+      console.log('Calling Gemini API...');
+      
+      const response = await fetch(apiUrl, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -219,21 +227,28 @@ class AIService {
       });
 
       if (!response.ok) {
-        console.warn(`Gemini Chat API error: ${response.status}, falling back to mock response`);
+        const errorData = await response.json().catch(() => ({}));
+        console.error(`Gemini Chat API error: ${response.status}`, errorData);
+        console.warn('Falling back to mock response');
         return this.getMockChatResponse(prompt);
       }
 
       const data = await response.json();
       
       if (!data.candidates || !data.candidates[0] || !data.candidates[0].content) {
-        console.warn('Invalid Gemini Chat API response, falling back to mock response');
+        console.warn('Invalid Gemini Chat API response:', data);
+        console.warn('Falling back to mock response');
         return this.getMockChatResponse(prompt);
       }
       
       const generatedText = data.candidates[0].content.parts[0].text;
+      console.log('Gemini API response received successfully');
       return generatedText.trim();
     } catch (error) {
       console.error('Gemini Chat API call failed:', error);
+      if (error instanceof Error) {
+        console.error('Error details:', error.message);
+      }
       return this.getMockChatResponse(prompt);
     }
   }
@@ -262,7 +277,7 @@ class AIService {
   // Gemini API calls
   private async callGeminiAPI(prompt: string): Promise<CropData[]> {
     try {
-      const response = await fetch(`https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash:generateContent?key=${this.config.geminiApiKey}`, {
+      const response = await fetch(`https://generativelanguage.googleapis.com/v1/models/gemini-2.0-flash:generateContent?key=${this.config.geminiApiKey}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -300,7 +315,7 @@ class AIService {
 
   private async callGeminiMarketAPI(prompt: string): Promise<MarketAnalysis> {
     try {
-      const response = await fetch(`https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash:generateContent?key=${this.config.geminiApiKey}`, {
+      const response = await fetch(`https://generativelanguage.googleapis.com/v1/models/gemini-2.0-flash:generateContent?key=${this.config.geminiApiKey}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -337,7 +352,7 @@ class AIService {
 
   private async callGeminiWeatherAPI(prompt: string): Promise<WeatherData> {
     try {
-      const response = await fetch(`https://generativelanguage.googleapis.com/v1/models/gemini-1.5-flash:generateContent?key=${this.config.geminiApiKey}`, {
+      const response = await fetch(`https://generativelanguage.googleapis.com/v1/models/gemini-2.0-flash:generateContent?key=${this.config.geminiApiKey}`, {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
@@ -510,13 +525,28 @@ class AIService {
 
 // Create singleton instance
 let aiService: AIService | null = null;
+let cachedApiKey: string | undefined = undefined;
 
 export function getAIService(): AIService {
-  if (!aiService) {
-    aiService = new AIService({
-      geminiApiKey: process.env.NEXT_PUBLIC_GEMINI_API_KEY
-    });
+  const apiKey = process.env.NEXT_PUBLIC_GEMINI_API_KEY;
+  
+  // Log for debugging
+  console.log('getAIService called - API key present:', !!apiKey);
+  if (apiKey) {
+    console.log('API key value:', `${apiKey.substring(0, 10)}...`);
+  } else {
+    console.warn('API key NOT SET - check .env.local file');
   }
+  
+  // Recreate service if key changed or service doesn't exist
+  if (!aiService || cachedApiKey !== apiKey) {
+    console.log('Creating new AIService instance with API key');
+    aiService = new AIService({
+      geminiApiKey: apiKey
+    });
+    cachedApiKey = apiKey;
+  }
+  
   return aiService;
 }
 

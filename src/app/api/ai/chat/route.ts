@@ -3,6 +3,12 @@ import { getAIService } from '@/lib/ai';
 
 export async function POST(request: NextRequest) {
   try {
+    // Debug: Check environment variable
+    const apiKey = process.env.NEXT_PUBLIC_GEMINI_API_KEY;
+    console.log('=== Chat API Route ===');
+    console.log('API Key present:', !!apiKey);
+    console.log('API Key value:', apiKey ? `${apiKey.substring(0, 10)}...` : 'NOT SET');
+    
     const { message, conversationHistory = [] } = await request.json();
 
     if (!message || typeof message !== 'string') {
@@ -17,9 +23,14 @@ export async function POST(request: NextRequest) {
     // Try to get response from AI service with conversation memory
     try {
       const aiResponse = await aiService.generateChatResponse(message, conversationHistory);
+      console.log('AI Response received, length:', aiResponse.length);
       return NextResponse.json({ response: aiResponse });
     } catch (aiError) {
       console.error('AI service error:', aiError);
+      if (aiError instanceof Error) {
+        console.error('Error message:', aiError.message);
+        console.error('Error stack:', aiError.stack);
+      }
       
       // Fallback response based on keywords
       const fallbackResponse = generateFallbackResponse(message);
@@ -28,6 +39,9 @@ export async function POST(request: NextRequest) {
 
   } catch (error) {
     console.error('Chat API error:', error);
+    if (error instanceof Error) {
+      console.error('Error details:', error.message);
+    }
     return NextResponse.json(
       { error: 'Internal server error' },
       { status: 500 }
